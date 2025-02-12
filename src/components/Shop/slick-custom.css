@@ -1,0 +1,48 @@
+/* Estilo dos dots (bolinhas de navegação) */
+.slick-dots li button:before {
+  font-size: 12px;
+  color: #1e1e1e; /* cor dos dots inativos */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #d4a853; /* cor do dot ativo - usando sua cor primary */
+}
+
+/* Estilo das setas de navegação */
+.slick-prev,
+.slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+.slick-prev {
+  left: -30px;
+}
+
+.slick-next {
+  right: -30px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 32px;
+  color: #0e0d05; /* cor das setas */
+  opacity: 0.6;
+}
+
+/* Espaçamento entre os slides */
+.slick-slide {
+  padding: 0 0px;
+}
+
+/* Altura do container do slider */
+.slick-list {
+  margin: 0 -10px;
+  padding: 20px 0;
+}
+
+/* Estilo quando o slide está focado/hover */
+.slick-slide:hover {
+  cursor: pointer;
+}
