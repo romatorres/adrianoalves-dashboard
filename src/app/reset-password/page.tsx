@@ -1,11 +1,12 @@
 import { ResetPasswordForm } from "@/components/Auth/ResetPasswordForm";
 import Image from "next/image";
 
-export default async function ResetPassword({
-  searchParams,
-}: {
-  searchParams: { token?: string };
-}) {
+type PageProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | undefined };
+};
+
+export default async function ResetPassword({ searchParams }: PageProps) {
   const token = searchParams.token || "";
 
   return (
