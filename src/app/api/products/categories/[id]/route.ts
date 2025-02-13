@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+   const { searchParams } = new URL(request.url)
+   const id = searchParams.get('id') || ''
   try {
     const { name, description } = await request.json();
 
@@ -14,7 +15,7 @@ export async function PUT(
       where: {
         name,
         NOT: {
-          id: params.id,
+          id: id,
         },
       },
     });
@@ -27,7 +28,7 @@ export async function PUT(
     }
 
     const category = await prisma.productCategory.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         name,
         description,
