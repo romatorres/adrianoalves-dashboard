@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { Decimal } from "@prisma/client/runtime/library";
 import { Prisma } from "@prisma/client";
 
@@ -14,12 +14,13 @@ function serializeProduct(product: {
 }
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -43,13 +44,15 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     const product = await prisma.product.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...data,
         price: data.price ? new Decimal(data.price) : undefined,
@@ -80,12 +83,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.product.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({

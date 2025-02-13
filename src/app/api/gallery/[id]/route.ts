@@ -1,14 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { Prisma } from "@prisma/client";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const image = await prisma.galleryImage.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!image) {
@@ -32,15 +33,17 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     
     
     const image = await prisma.galleryImage.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...data,
         active: data.active === true || data.active === 'true',
@@ -97,12 +100,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.galleryImage.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({

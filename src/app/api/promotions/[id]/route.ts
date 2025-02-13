@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest} from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Decimal } from "@prisma/client/runtime/library";
 import { Promotion } from "@/app/dashboard/promotions/types";
@@ -15,12 +15,13 @@ function serializePromotion(promotion: PromotionWithDecimal): Promotion {
 }
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const promotion = await prisma.promotion.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!promotion) {
@@ -47,11 +48,11 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
-    const id = params.id;
     const json = await request.json();
 
     // Garantir que as datas sejam convertidas corretamente
@@ -87,12 +88,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.promotion.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
