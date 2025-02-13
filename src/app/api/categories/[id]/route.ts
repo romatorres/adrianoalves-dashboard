@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 
 export async function GET(
   request: NextRequest,
-  /* { params }: { params: { id: string } } */
+  
 ) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id') || ''
@@ -34,13 +34,15 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     const category = await prisma.productCategory.update({
-      where: { id: params.id },
+      where: { id },
       data,
     });
 
@@ -68,12 +70,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.productCategory.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({
