@@ -51,13 +51,15 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     // Verifica se existem produtos usando esta categoria
     const productsCount = await prisma.product.count({
-      where: { categoryId: params.id },
+      where: { id },
     });
 
     if (productsCount > 0) {
@@ -71,7 +73,7 @@ export async function DELETE(
     }
 
     await prisma.productCategory.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: "Categoria excluída com sucesso" });
