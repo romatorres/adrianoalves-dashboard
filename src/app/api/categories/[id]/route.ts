@@ -4,11 +4,13 @@ import { Prisma } from "@prisma/client";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  /* { params }: { params: { id: string } } */
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
-    /* const category = await prisma.productCategory.findUnique({
-      where: { id: params.id },
+    const category = await prisma.productCategory.findUnique({
+      where: { id },
     });
 
     if (!category) {
@@ -16,12 +18,11 @@ export async function GET(
         success: false,
         error: "Categoria não encontrada"
       }, { status: 404 });
-    } */
+    }
 
     return NextResponse.json({
       success: true,
-     //data: category
-     teste: params.id
+      data: category
     });
   } catch (error) {
     console.error("Erro ao buscar categoria:", error);
