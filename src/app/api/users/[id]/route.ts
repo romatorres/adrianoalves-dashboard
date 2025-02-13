@@ -1,13 +1,14 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+   const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const user = await prisma.user.findUnique({
-      where: { id: params.id },
+      where: { id },
       select: {
         id: true,
         name: true,
@@ -31,13 +32,14 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+   const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     const user = await prisma.user.update({
-      where: { id: params.id },
+      where: { id },
       data,
       select: {
         id: true,
@@ -58,12 +60,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
 ) {
+   const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.user.delete({
-      where: { id: params.id },
+      where: { id },
     });
     return NextResponse.json({ success: true });
   } catch {
