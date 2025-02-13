@@ -8,7 +8,7 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(users);
-  } catch (error) {
+  } catch{
     return NextResponse.json(
       { error: "Error fetching users" },
       { status: 500 }
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(user);
-  } catch (error) {
+  } catch{
     return NextResponse.json({ error: "Error creating user" }, { status: 500 });
   }
 }
@@ -51,7 +51,7 @@ export async function PUT(request: Request) {
     });
 
     return NextResponse.json(user);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Error updating user" }, { status: 500 });
   }
 }
