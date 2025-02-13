@@ -1,13 +1,16 @@
 import { ResetPasswordForm } from "@/components/Auth/ResetPasswordForm";
 import Image from "next/image";
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+interface SearchParams {
+  token?: string;
+}
 
-export default function ResetPassword({ searchParams }: Props) {
-  const token =
-    typeof searchParams.token === "string" ? searchParams.token : "";
+export default async function ResetPassword({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const token = searchParams.token || "";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary">
