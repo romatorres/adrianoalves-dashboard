@@ -1,11 +1,13 @@
 import { ResetPasswordForm } from "@/components/Auth/ResetPasswordForm";
 import Image from "next/image";
 
-export default function ResetPassword({
-  searchParams,
-}: {
-  searchParams: { token: string };
-}) {
+interface PageProps {
+  searchParams: {
+    token?: string;
+  };
+}
+
+export default function ResetPassword({ searchParams }: PageProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary">
       <div className="max-w-md w-full p-8 bg-white shadow-md rounded-lg">
@@ -22,7 +24,7 @@ export default function ResetPassword({
             Digite sua nova senha
           </p>
         </div>
-        <ResetPasswordForm token={searchParams.token} />
+        <ResetPasswordForm token={searchParams.token || ""} />
       </div>
     </div>
   );
