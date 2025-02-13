@@ -20,7 +20,8 @@ export async function GET(
 
     return NextResponse.json({
       success: true,
-      /* data: category */
+     //data: category
+     teste: params.id
     });
   } catch (error) {
     console.error("Erro ao buscar categoria:", error);
