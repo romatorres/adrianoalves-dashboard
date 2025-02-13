@@ -1,13 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const member = await prisma.teamMember.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!member) {
@@ -28,25 +30,21 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
-    const id = params.id;
-    const json = await request.json();
+    const data = await request.json();
+    const member = await prisma.teamMember.update({
+      where: { id },
+      data,
+    });
 
     const updatedTeamMember = await prisma.teamMember.update({
       where: { id },
-      data: {
-        name: json.name,
-        role: json.role,
-        imageUrl: json.imageUrl,
-        bio: json.bio,
-        instagram: json.instagram,
-        facebook: json.facebook,
-        linkedin: json.linkedin,
-        active: json.active,
-      },
+      data: member,
     });
 
 
@@ -61,12 +59,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+   const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.teamMember.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });

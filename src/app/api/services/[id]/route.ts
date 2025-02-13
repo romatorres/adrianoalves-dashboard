@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { Decimal } from "@prisma/client/runtime/library";
 
 function serializeService(service: {
@@ -13,12 +13,14 @@ function serializeService(service: {
 }
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const service = await prisma.service.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!service) {
@@ -39,13 +41,15 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     const service = await prisma.service.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...data,
         price: new Decimal(data.price),
@@ -63,12 +67,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  
 ) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id') || ''
   try {
     await prisma.service.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });

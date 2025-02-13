@@ -53,22 +53,26 @@ export async function PUT(
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id') || ''
   try {
-    const json = await request.json();
+    const data = await request.json();
+    await prisma.promotion.update({
+      where: { id },
+      data,
+    });
 
     // Garantir que as datas sejam convertidas corretamente
-    const startDate = json.startDate && new Date(json.startDate);
-    const endDate = json.endDate && new Date(json.endDate);
+    const startDate = data.startDate && new Date(data.startDate);
+    const endDate = data.endDate && new Date(data.endDate);
 
     const updatedPromotion = await prisma.promotion.update({
       where: { id },
       data: {
-        title: json.title,
-        description: json.description,
-        imageUrl: json.imageUrl,
+        title: data.title,
+        description: data.description,
+        imageUrl: data.imageUrl,
         startDate,
         endDate,
-        discount: json.discount ? Number(json.discount) : 0,
-        active: json.active,
+        discount: data.discount ? Number(data.discount) : 0,
+        active: data.active,
       },
     });
 
