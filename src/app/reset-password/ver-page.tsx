@@ -1,4 +1,4 @@
-import { ResetPasswordForm } from "@/components/Auth/ResetPasswordForm";
+/* import { ResetPasswordForm } from "@/components/Auth/ResetPasswordForm";
 import Image from "next/image";
 
 type PageProps = {
@@ -30,3 +30,4 @@ export default async function ResetPassword({ searchParams }: PageProps) {
     </div>
   );
 }
+ */
