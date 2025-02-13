@@ -2,12 +2,12 @@ import { ResetPasswordForm } from "@/components/Auth/ResetPasswordForm";
 import Image from "next/image";
 
 type PageProps = {
-  params: { slug: string };
+  params?: { [key: string]: string };
   searchParams: { [key: string]: string | undefined };
 };
 
 export default async function ResetPassword({ searchParams }: PageProps) {
-  const token = searchParams.token || "";
+  const token = searchParams?.token || "";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary">
