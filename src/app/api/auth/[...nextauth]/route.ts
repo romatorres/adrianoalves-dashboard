@@ -1,9 +1,10 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import type { Session } from "next-auth";
+import NextAuth from "next-auth/next";
 import { compare } from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import { JWT } from "next-auth/jwt";
+import type { JWT } from "next-auth/jwt";
+import type { Session } from "next-auth";
+
 
 if (!process.env.NEXTAUTH_SECRET) {
   throw new Error("NEXTAUTH_SECRET must be set");
@@ -24,7 +25,19 @@ type CustomJWT = JWT & {
   exp?: number;
 };
 
-const authOptions: NextAuthOptions = {
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      name: string | null;
+      email: string | null;
+      role: "admin";
+      active: boolean;
+    }
+  }
+}
+
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -60,36 +73,40 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({
-      token,
-      user,
-    }: {
+    async jwt(params: {
       token: JWT;
       user?: User | null;
-    }): Promise<CustomJWT> {
-      if (user) {
+    }) {
+      if (params.user) {
         return {
-          ...token,
-          id: user.id,
-          role: user.role,
-        } as CustomJWT;
+          ...params.token,
+          id: params.user.id,
+          role: params.user.role
+        };
       }
-      return token as CustomJWT;
+      return params.token;
     },
-    async session({ session, token }: { session: Session; token: CustomJWT }) {
-      if (session.user) {
-        session.user = {
+    async session({ 
+      session, 
+      token 
+    }: { 
+      session: Session; 
+      token: CustomJWT 
+    }) {
+      return {
+        ...session,
+        user: {
           ...session.user,
           id: token.id,
           role: token.role,
-        } as Session["user"] & { id: string; role: UserRole };
-      }
-      return session;
-    },
+          active: true
+        }
+      };
+    }
   },
   session: {
-    strategy: "jwt",
-    maxAge: 60 * 60 * 4, // 4 horas de sessão
+    strategy: "jwt" as const,
+    maxAge: 60 * 60 * 4,
   },
   cookies: {
     sessionToken: {
@@ -111,3 +128,6 @@ const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
+
+
+
