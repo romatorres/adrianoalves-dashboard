@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const category = await prisma.productCategory.findUnique({
+    /* const category = await prisma.productCategory.findUnique({
       where: { id: params.id },
     });
 
@@ -16,11 +16,11 @@ export async function GET(
         success: false,
         error: "Categoria não encontrada"
       }, { status: 404 });
-    }
+    } */
 
     return NextResponse.json({
       success: true,
-      data: category
+      /* data: category */
     });
   } catch (error) {
     console.error("Erro ao buscar categoria:", error);
