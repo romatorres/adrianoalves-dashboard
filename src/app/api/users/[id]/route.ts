@@ -66,7 +66,7 @@ export async function DELETE(
       where: { id: params.id },
     });
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Error deleting user" }, { status: 500 });
   }
 }

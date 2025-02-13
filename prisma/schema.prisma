@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Service {
@@ -92,7 +92,7 @@ model User {
   id            String          @id @default(cuid())
   name          String
   email         String          @unique
-  password      String?         // Opcional para login social
+  password      String? // Opcional para login social
   role          String          @default("user")
   image         String?
   active        Boolean         @default(true)

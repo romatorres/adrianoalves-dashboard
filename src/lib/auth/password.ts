@@ -1,4 +1,4 @@
-import { hash, compare } from "bcryptjs";
+
 
 export const validatePassword = (password: string): boolean => {
   const minLength = 8;

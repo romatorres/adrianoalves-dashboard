@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const sections = await prisma.sectionVisibility.findMany();
     return NextResponse.json(sections);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error fetching sections" },
       { status: 500 }
@@ -22,7 +22,7 @@ export async function PUT(request: Request) {
       create: { name, active },
     });
     return NextResponse.json(section);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error updating section" },
       { status: 500 }
@@ -50,7 +50,7 @@ export async function POST() {
 
     const createdSections = await prisma.sectionVisibility.findMany();
     return NextResponse.json(createdSections);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error creating sections" },
       { status: 500 }

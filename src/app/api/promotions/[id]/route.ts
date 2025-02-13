@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import { Promotion } from "@/app/dashboard/promotions/types";
 
@@ -56,8 +55,8 @@ export async function PUT(
     const json = await request.json();
 
     // Garantir que as datas sejam convertidas corretamente
-    const startDate = json.startDate ? new Date(json.startDate) : null;
-    const endDate = json.endDate ? new Date(json.endDate) : null;
+    const startDate = json.startDate && new Date(json.startDate);
+    const endDate = json.endDate && new Date(json.endDate);
 
     const updatedPromotion = await prisma.promotion.update({
       where: { id },

@@ -20,7 +20,7 @@ export async function DELETE(request: Request) {
       );
     }
 
-    const result = await utapi.deleteFiles(fileKey);
+    await utapi.deleteFiles(fileKey);
 
     return NextResponse.json({ success: true });
   } catch (error) {
