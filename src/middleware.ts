@@ -1,42 +1,38 @@
-import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { JWT } from "next-auth/jwt";
-
-type UserRole = "admin" | "user" | "barber";
-
-interface ExtendedJWT extends JWT {
-  id: string;
-  role: UserRole;
-  rememberMe?: boolean;
-  exp?: number;
-}
+import { getToken } from "next-auth/jwt";
+import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 
 export default withAuth(
-  async function middleware(req) {
-    const token = req.nextauth.token as ExtendedJWT;
-    const isAuthPage = req.nextUrl.pathname === "/login";
+  async function middleware(req: NextRequestWithAuth) {
+    const token = await getToken({ req });
+    const isAuth = !!token;
+    const isAuthPage = req.nextUrl.pathname.startsWith('/login');
 
-    if (isAuthPage && token) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    if (isAuthPage) {
+      if (isAuth) {
+        return NextResponse.redirect(new URL('/dashboard', req.url));
+      }
+      return null;
     }
 
-    // Verifica se o token expirou ou se não deve ser lembrado
-    if (token?.exp && Date.now() >= token.exp * 1000) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+    if (!isAuth) {
+      let from = req.nextUrl.pathname;
+      if (req.nextUrl.search) {
+        from += req.nextUrl.search;
+      }
 
-    return NextResponse.next();
+      return NextResponse.redirect(
+        new URL(`/login?from=${encodeURIComponent(from)}`, req.url)
+      );
+    }
   },
   {
     callbacks: {
-      authorized: ({ token, req }) => {
-        const isLoginPage = req?.nextUrl?.pathname === "/login";
-        return isLoginPage || !!token;
-      },
+      authorized: ({ token }) => !!token,
     },
   }
 );
 
 export const config = {
-  matcher: ["/dashboard", "/dashboard/:path*", "/login"],
+  matcher: ['/dashboard/:path*', '/login']
 };
