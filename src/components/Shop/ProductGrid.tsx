@@ -76,7 +76,7 @@ export function ProductGrid({
       </div>
     </section>
   ) : (
-    <section className="py-12 md:py-16 bg-white">
+    <section className="py-10 md:py-16 bg-white">
       <div className="max-w-[1280px] mx-auto px-2 md:px-6">
         <div className="mb-12 md:mb-16 flex flex-col items-center">
           <h2 className="text-3xl md:text-6xl font-primary font-normal text-background mb-3">
