@@ -157,3 +157,11 @@ model PasswordReset {
   createdAt DateTime @default(now())
   used      Boolean  @default(false)
 }
+
+model Section {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

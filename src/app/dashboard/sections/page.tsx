@@ -27,11 +27,31 @@ export default function SectionsPage() {
 
   const fetchSections = async () => {
     try {
+      console.log("Fetching sections...");
+
+      // Primeiro, tenta criar as seções iniciais
+      await fetch("/api/sections", {
+        method: "POST",
+      });
+
+      // Depois busca todas as seções
       const response = await fetch("/api/sections");
+      console.log("Response status:", response.status);
       const data = await response.json();
-      setSections(data);
+      console.log("Sections data:", data);
+
+      if (Array.isArray(data)) {
+        setSections(data);
+      } else if (data.error) {
+        console.error("Error from API:", data.error);
+        setSections([]);
+      } else {
+        console.error("Unexpected data format:", data);
+        setSections([]);
+      }
     } catch (error) {
       console.error("Error fetching sections:", error);
+      setSections([]);
     } finally {
       setIsLoading(false);
     }
