@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { Suspense } from "react";
 import { Sidebar } from "@/components/Dashboard/Sidebar";
 import { RequireAuth } from "@/components/Auth/RequireAuth";
