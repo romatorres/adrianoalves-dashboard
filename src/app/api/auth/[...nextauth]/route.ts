@@ -1,83 +1,69 @@
-import NextAuth, { NextAuthOptions, Session } from "next-auth";
-import { compare } from "bcryptjs";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma";
-import type { JWT } from "next-auth/jwt";
+import { PrismaClient } from "@prisma/client";
+import { compare } from "bcryptjs";
+import { Session } from "next-auth";
 
-if (!process.env.NEXTAUTH_SECRET) {
-  throw new Error("NEXTAUTH_SECRET must be set");
-}
+const prisma = new PrismaClient();
 
-type UserRole = "admin" | "user" | "barber";
-
-interface ExtendedUser {
-  id: string;
-  name?: string | null;
+// Defina o tipo do token manualmente
+interface Token {
+  sub?: string; // O ID do usuário
   email?: string | null;
-  role: UserRole;
+  name?: string | null;
 }
 
-interface ExtendedSession extends Session {
-  user: ExtendedUser;
-}
-
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
-      name: "credentials",
+      name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Credenciais incompletas");
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            console.log("2. Missing credentials");
+            return null;
+          }
+
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          if (user && credentials.password && user.password) {
+            console.log("4. Comparing passwords");
+            const isValid = await compare(
+              credentials.password,
+              user.password
+            );
+
+            if (isValid) {
+              return {
+                id: user.id.toString(),
+                email: user.email,
+                name: user.name,
+              };
+            }
+          }
+          return null;
+        } catch {
+          return null;
         }
-
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        if (!user) throw new Error("Email não encontrado");
-        if (!user.active) throw new Error("Usuário desativado");
-
-        const isValidPassword = await compare(credentials.password, user.password!);
-        if (!isValidPassword) throw new Error("Senha incorreta");
-
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        };
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user: ExtendedUser | undefined }) {
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
-      }
-      return token;
-    },
-    async session({ session, token }: { session: ExtendedSession; token: JWT & { role: UserRole } }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role;
+    async session({ session, token }: { session: Session; token: Token }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub; // Adicione o ID do usuário à sessão
       }
       return session;
     },
   },
-  pages: {
-    signIn: "/login",
-    error: "/auth/error",
-  },
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 dias
-  },
-  debug: process.env.NODE_ENV === "development",
-}) satisfies NextAuthOptions;
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

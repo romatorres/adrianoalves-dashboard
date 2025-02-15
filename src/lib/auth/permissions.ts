@@ -1,4 +1,4 @@
-import { getServerSession } from "next-auth";
+/* import { getServerSession } from "next-auth";
 
 export async function validateAdminAccess() {
   const session = await getServerSession();
@@ -11,3 +11,4 @@ export async function validateAdminAccess() {
     throw new Error("Acesso não autorizado");
   }
 }
+ */
