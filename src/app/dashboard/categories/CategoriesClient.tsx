@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export function CategoriesClient() {
       const res = await fetch("/api/categories");
       if (res.ok) {
         const data = await res.json();
-        const activeCategories = data.filter((cat) => cat.active);
+        const activeCategories = data.filter((cat: Category) => cat.active);
         setCategories(activeCategories);
       }
     } catch (error) {
@@ -106,19 +106,19 @@ export function CategoriesClient() {
                 </td>
               </tr>
             ) : (
-              categories.map((category) => (
-                <tr key={category.id} className="border-b hover:bg-gray-50">
-                  <td className="p-4">{category.name}</td>
+              categories.map((cat: Category) => (
+                <tr key={cat.id} className="border-b hover:bg-gray-50">
+                  <td className="p-4">{cat.name}</td>
                   <td className="p-4">
                     <div className="flex gap-2 justify-end">
                       <button
-                        onClick={() => handleEdit(category)}
+                        onClick={() => handleEdit(cat)}
                         className="text-amber-600 hover:text-amber-700"
                       >
                         Editar
                       </button>
                       <button
-                        onClick={() => handleDelete(category.id)}
+                        onClick={() => handleDelete(cat.id)}
                         className="text-red-600 hover:text-red-700"
                       >
                         Excluir
@@ -134,3 +134,4 @@ export function CategoriesClient() {
     </div>
   );
 }
+ */

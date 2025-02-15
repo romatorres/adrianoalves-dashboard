@@ -3,15 +3,23 @@
 import { useState } from "react";
 import { ProductForm } from "./ProductForm";
 import { ProductList } from "./ProductList";
-import { Product, ProductFormData, Category } from "../types";
+import { Product } from "@/types";
+import { ProductFormData } from "../types";
 import { createProduct, deleteProduct, updateProduct } from "../actions";
 import Link from "next/link";
 import Button from "@/components/Ui/Button";
 import { toast } from "react-hot-toast";
 
+interface ProductCategory {
+  id: string;
+  name: string;
+  description: string | null;
+  active: boolean;
+}
+
 interface ProductManagerProps {
   initialProducts: Product[];
-  categories: Category[];
+  categories: ProductCategory[];
 }
 
 export function ProductManager({
