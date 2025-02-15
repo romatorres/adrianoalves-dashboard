@@ -2,12 +2,23 @@ import { Suspense } from "react";
 import { Sidebar } from "@/components/Dashboard/Sidebar";
 import { RequireAuth } from "@/components/Auth/RequireAuth";
 import Loading from "./loading";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+  console.log("Dashboard Session:", session);
+
+  if (!session) {
+    console.log("No session found, redirecting to login");
+    redirect("/login");
+  }
+
   return (
     <RequireAuth>
       <div className="min-h-screen bg-gray-50">
