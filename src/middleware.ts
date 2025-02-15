@@ -12,7 +12,10 @@ interface ExtendedJWT extends JWT {
 }
 
 export default withAuth(
-  async function middleware(req) {
+  function middleware(req) {
+    console.log("Middleware - Verificando rota:", req.nextUrl.pathname);
+    console.log("Middleware - Token:", req.nextauth.token);
+    
     const token = req.nextauth.token as ExtendedJWT;
     const isAuthPage = req.nextUrl.pathname === "/login";
 
@@ -29,14 +32,11 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token, req }) => {
-        const isLoginPage = req?.nextUrl?.pathname === "/login";
-        return isLoginPage || !!token;
-      },
+      authorized: ({ token }) => !!token,
     },
   }
 );
 
 export const config = {
-  matcher: ["/dashboard", "/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*"]
 };
