@@ -1,82 +1,85 @@
 import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
-import { Session } from "next-auth/";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
-
-interface Token {
-  sub?: string;
-  email?: string | null;
-  name?: string | null;
-}
-
-// Add this interface to extend the default Session type
-interface ExtendedSession extends Session {
-  user?: {
-    id?: string;
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    role?: string;
-  }
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error("NEXTAUTH_SECRET must be set");
 }
 
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        try {
-          if (!credentials?.email || !credentials?.password) {
-            return null;
-          }
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Credenciais incompletas");
+        }
 
+        try {
           const user = await prisma.user.findUnique({
-            where: { email: credentials.email },
+            where: {
+              email: credentials.email,
+            },
           });
 
-          if (user && credentials.password && user.password) {
-            const isValid = await compare(credentials.password, user.password);
-
-            if (isValid) {
-              return {
-                id: user.id.toString(),
-                email: user.email,
-                name: user.name,
-              };
-            }
+          if (!user || !user.password) {
+            throw new Error("Email não encontrado");
           }
-          return null;
-        } catch {
-          return null;
+
+          if (!user.active) {
+            throw new Error("Usuário desativado");
+          }
+
+          const isPasswordValid = await compare(
+            credentials.password,
+            user.password
+          );
+
+          if (!isPasswordValid) {
+            throw new Error("Senha incorreta");
+          }
+
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            active: user.active,
+          };
+        } catch (error) {
+          if (error instanceof Error) {
+            throw new Error(error.message);
+          }
+          throw new Error("Erro ao autenticar");
         }
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, token }: { session: ExtendedSession; token: Token }) {
-      if (token.sub && session.user) {
-        // Get user data from Prisma
-        const user = await prisma.user.findUnique({
-          where: { id: token.sub },
-          select: { role: true }
-        });
-
-        session.user.id = token.sub;
-        if (user) {
-          session.user.role = user.role;
-        }
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role as string;
       }
       return session;
     },
-  }
+  },
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+  },
 });
 
 export { handler as GET, handler as POST };
