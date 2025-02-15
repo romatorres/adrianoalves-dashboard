@@ -1,12 +1,7 @@
-import { hash } from "bcryptjs";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-
-export async function hashPassword(password: string) {
-  return hash(password, 12);
-}
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -30,6 +25,10 @@ export const authOptions: AuthOptions = {
             throw new Error("Email não encontrado");
           }
 
+          if (!user.active) {
+            throw new Error("Usuário desativado");
+          }
+
           const isPasswordValid = await compare(credentials.password, user.password);
 
           if (!isPasswordValid) {
@@ -43,14 +42,28 @@ export const authOptions: AuthOptions = {
             role: user.role,
             active: user.active,
           };
-        } catch {
+        } catch (error) {
+          if (error instanceof Error) {
+            throw new Error(error.message);
+          }
           throw new Error("Erro ao autenticar");
         }
       },
     }),
   ],
   callbacks: {
-    // ... resto do código existente ...
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role as string;
+      }
+      return session;
+    },
   },
   pages: {
     signIn: "/login",
@@ -58,4 +71,4 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
-};
+}; 
