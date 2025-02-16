@@ -73,38 +73,32 @@ export async function updateGalleryImage(
   }
 }
 
-export async function deleteGalleryImage(id: string, imageUrl: string) {
+export async function deleteGalleryImage(id: string, imageUrl: string): Promise<void> {
   try {
-
-    // Verificar se é uma URL do UploadThing
+    // Primeiro tenta deletar a imagem do UploadThing
     if (isUploadThingUrl(imageUrl)) {
-      console.log(
-        "[Delete] Tentando deletar arquivo do UploadThing:",
-        imageUrl
-      );
       try {
         await deleteUploadThingFile(imageUrl);
-        
       } catch (error) {
         console.error("[Delete] Erro ao deletar do UploadThing:", error);
+        // Continua mesmo se falhar a deleção do arquivo
       }
-    } else {
-      console.log("[Delete] URL não é do UploadThing:", imageUrl);
     }
 
-    // Depois deleta o registro do banco de dados
+    // Depois deleta o registro do banco
     const response = await fetch(`/api/gallery/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
 
     if (!response.ok) {
-      throw new Error("Falha ao deletar imagem");
+      const error = await response.json();
+      throw new Error(error.message || "Falha ao deletar imagem");
     }
 
-    return await response.json();
+    await response.json();
   } catch (error) {
-    console.error("[Delete] Erro ao deletar imagem:", error);
-    throw error;
+    console.error('Erro ao deletar imagem:', error);
+    throw error instanceof Error ? error : new Error('Erro ao deletar imagem');
   }
 }
 

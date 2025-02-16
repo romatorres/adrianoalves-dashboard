@@ -42,14 +42,12 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     const service = await prisma.service.update({
-      where: { id },
+      where: { id: params.id },
       data: {
         ...data,
         price: new Decimal(data.price),

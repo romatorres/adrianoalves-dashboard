@@ -29,9 +29,9 @@ const buttonVariants = {
   danger_card:
     "text-red-500 font-medium hover:text-red-700 px-1 py-1 border-none duration-200",
   link_enabled:
-    "text-background hover:text-gray-01 border-none font-semibold bg-primary px-3 py-1 rounded-lg",
+    "text-background hover:text-gray-01 border-none font-semibold bg-primary px-3 py-2 rounded-lg",
   link_disabled:
-    "text-gray-03 hover:text-gray-02 border-none bg-secondary px-3 py-1 rounded-lg",
+    "text-gray-04 hover:text-gray-03 border-none bg-gray-03 hover:bg-gray-02 px-3 py-2 rounded-lg",
   link: "text-gray-01 hover:text-gray-02 border-none px-3 py-1",
 };
 

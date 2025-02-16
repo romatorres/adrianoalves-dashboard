@@ -21,7 +21,7 @@ interface TeamMemberProps {
 
 const TeamMember = ({ member }: TeamMemberProps) => {
   return (
-    <div className="w-full mx-auto relative group h-[400px] rounded-lg overflow-hidden">
+    <div className="w-full mx-auto relative group h-[440px] rounded-lg overflow-hidden">
       {/* Imagem de fundo */}
       <div className="absolute inset-0">
         <Image
@@ -78,8 +78,8 @@ const TeamMember = ({ member }: TeamMemberProps) => {
       </div>
 
       {/* Informações do membro */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
-        <div className="space-y-2">
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 border-none transform translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
+        <div className="space-y-1">
           <h3 className="text-xl font-bold text-white">{member.name}</h3>
           <p className="text-sm text-gray-200">{member.role}</p>
           {member.bio && (

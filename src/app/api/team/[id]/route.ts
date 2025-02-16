@@ -31,19 +31,17 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     const member = await prisma.teamMember.update({
-      where: { id },
+      where: { id: params.id },
       data,
     });
 
     const updatedTeamMember = await prisma.teamMember.update({
-      where: { id },
+      where: { id: params.id },
       data: member,
     });
 

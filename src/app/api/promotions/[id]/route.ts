@@ -49,13 +49,12 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     await prisma.promotion.update({
-      where: { id },
+      where: { id: params.id },
       data,
     });
 
@@ -64,7 +63,7 @@ export async function PUT(
     const endDate = data.endDate && new Date(data.endDate);
 
     const updatedPromotion = await prisma.promotion.update({
-      where: { id },
+      where: { id: params.id },
       data: {
         title: data.title,
         description: data.description,

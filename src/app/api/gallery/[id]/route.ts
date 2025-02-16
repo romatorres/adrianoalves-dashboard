@@ -34,16 +34,14 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     const data = await request.json();
     
     
     const image = await prisma.galleryImage.update({
-      where: { id },
+      where: { id: params.id },
       data: {
         ...data,
         active: data.active === true || data.active === 'true',
@@ -100,24 +98,23 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
+  request: Request,
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     await prisma.galleryImage.delete({
-      where: { id },
+      where: { id: params.id },
     });
 
     return NextResponse.json({
       success: true,
-      message: "Imagem excluída com sucesso"
+      message: "Imagem deletada com sucesso"
     });
   } catch (error) {
-    console.error("Erro ao excluir imagem:", error);
+    console.error("Erro ao deletar imagem:", error);
     return NextResponse.json({
       success: false,
-      error: "Erro ao excluir imagem"
+      message: "Erro ao deletar imagem"
     }, { status: 500 });
   }
 }
