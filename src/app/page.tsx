@@ -1,4 +1,3 @@
-import { ServiceCard } from "@/components/Services/ServiceCard";
 import { ProductGrid } from "@/components/Shop/ProductGrid";
 import TeamGrid from "@/components/Team/TeamGrid";
 import { PromotionGrid } from "@/components/Promotions/PromotionGrid";
@@ -17,6 +16,7 @@ import {
 import { Product } from "@/components/Shop/types";
 import { About } from "@/components/About/About";
 import { prisma } from "@/lib/prisma";
+import ServiceGrid from "@/components/Services/ServiceGrid";
 
 export default async function Home() {
   const sections = await prisma.sectionVisibility.findMany();
@@ -68,7 +68,7 @@ export default async function Home() {
         <TeamGrid members={members} isVisible={sectionsMap.team} />
       </section>
       <section id="service">
-        <ServiceCard
+        <ServiceGrid
           services={serializedServices}
           isVisible={sectionsMap.services}
         />

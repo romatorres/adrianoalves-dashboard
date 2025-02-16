@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import Button from "../ui/button";
+import Button from "../ui/ButtonForm";
 import Input from "../ui/Input";
 import toast from "react-hot-toast";
 import Link from "next/link";

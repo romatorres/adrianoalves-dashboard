@@ -8,7 +8,7 @@ interface Product {
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  imageUrl: string | null;
   productCategory?: {
     id: string;
     name: string;
@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="p-2">
         <div className="relative h-56">
           <Image
-            src={product.imageUrl}
+            src={product.imageUrl || ""}
             alt={product.name}
             fill
             className="object-cover rounded-lg"

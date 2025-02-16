@@ -7,7 +7,7 @@ import { Product } from "@/types";
 import { ProductFormData } from "../types";
 import { createProduct, deleteProduct, updateProduct } from "../actions";
 import Link from "next/link";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/ButtonForm";
 import { toast } from "react-hot-toast";
 
 interface ProductCategory {

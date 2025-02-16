@@ -5,7 +5,7 @@ import { GalleryImage } from "../types";
 import Image from "next/image";
 import { ImageModal } from "@/components/ImageModal/ImageModal";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/ButtonForm";
 import { toast } from "react-hot-toast";
 
 interface GalleryListProps {

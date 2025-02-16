@@ -5,7 +5,7 @@ import { TeamMember, TeamMemberFormData } from "../types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/ButtonForm";
 import toast from "react-hot-toast";
 
 interface TeamFormProps {

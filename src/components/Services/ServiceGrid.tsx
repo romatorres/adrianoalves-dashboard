@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductCard } from "./ProductCard";
+import { ServiceCard } from "./ServiceCard";
 import Image from "next/image";
 import {
   Carousel,
@@ -11,33 +11,27 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
-// Tipos movidos para um arquivo separado
-interface ProductCategory {
+interface Service {
   id: string;
   name: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
+  description: string | null;
   price: number;
-  imageUrl: string | null;
-  productCategory?: ProductCategory | null;
+  imageUrl: string;
+  duration: number;
 }
 
-interface ProductGridProps {
-  products: Product[];
+interface ServiceGridProps {
+  services: Service[];
   isVisible?: boolean;
 }
 
-export function ProductGrid({
-  products = [],
+export default function ServiceGrid({
+  services = [],
   isVisible = true,
-}: ProductGridProps) {
+}: ServiceGridProps) {
   if (!isVisible) return null;
 
-  return !products || products.length === 0 ? (
+  return !services || services.length === 0 ? (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center text-gray-500">
@@ -46,16 +40,16 @@ export function ProductGrid({
       </div>
     </section>
   ) : (
-    <section className="py-10 md:py-16 bg-white">
+    <section className="py-10 md:py-16 bg-secondary">
       <div className="max-w-[1280px] mx-auto px-2 md:px-6">
-        <div className="mb-12 md:mb-16 flex flex-col items-center">
-          <h2 className="text-3xl md:text-6xl font-primary font-normal text-background mb-3">
-            Shops
+        <div className="mb-8 md:mb-16 flex flex-col items-center">
+          <h2 className="text-3xl md:text-6xl font-primary font-normal text-black_secondary mb-3">
+            Serviços
           </h2>
           <div className="relative w-[96px] h-[22px] md:w-[120px] md:h-[28px]">
             <Image
               src="/img/bigode.svg"
-              alt="Bigode abaixo do titulo Loja"
+              alt="Bigode abaixo do titulo Serviços"
               fill
               className="object-contain"
             />
@@ -72,12 +66,12 @@ export function ProductGrid({
             ]}
           >
             <CarouselContent className="-ml-2 md:-ml-4">
-              {products.map((product) => (
+              {services.map((service) => (
                 <CarouselItem
-                  key={product.id}
+                  key={service.id}
                   className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
-                  <ProductCard product={product} />
+                  <ServiceCard service={service} />
                 </CarouselItem>
               ))}
             </CarouselContent>

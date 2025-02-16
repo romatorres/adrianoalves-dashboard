@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/ButtonForm";
 import { User } from "../types";
 import { useState } from "react";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
