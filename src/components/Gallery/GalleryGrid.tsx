@@ -3,11 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ImageModal } from "../ImageModal/ImageModal";
-import Slider from "react-slick";
 import { GalleryCard } from "./GalleryCard";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./gallery-custom.css";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface GalleryImage {
   id: string;
@@ -33,32 +36,6 @@ export function GalleryGrid({
   if (!isVisible || !images.length) {
     return null;
   }
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          arrows: true,
-        },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          arrows: false,
-        },
-      },
-    ],
-  };
 
   const handleImageLoad = (imageId: string) => {
     setLoadedImages((prev) => new Set(prev).add(imageId));
@@ -102,18 +79,31 @@ export function GalleryGrid({
         </div>
 
         <div className="gallery-slider">
-          <Slider {...settings}>
-            {images.map((image, index) => (
-              <div key={image.id} className="px-2">
-                <GalleryCard
-                  image={image}
-                  isLoaded={loadedImages.has(image.id)}
-                  onLoad={handleImageLoad}
-                  onClick={() => handleImageClick(index)}
-                />
-              </div>
-            ))}
-          </Slider>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {images.map((image, index) => (
+                <CarouselItem
+                  key={image.id}
+                  className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <GalleryCard
+                    image={image}
+                    isLoaded={loadedImages.has(image.id)}
+                    onLoad={handleImageLoad}
+                    onClick={() => handleImageClick(index)}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
         </div>
 
         {selectedImageIndex !== null && (

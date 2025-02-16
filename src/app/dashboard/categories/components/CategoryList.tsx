@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/Ui/Button";
+import Button from "@/components/ui/button";
 import { Category } from "../types";
 import { useState } from "react";
 import { DeleteModal } from "@/components/Modal/DeleteModal";

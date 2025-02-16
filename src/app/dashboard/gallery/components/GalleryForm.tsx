@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { GalleryImage, GalleryImageFormData } from "../types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
-import Input from "@/components/Ui/Input";
-import Textarea from "@/components/Ui/Textarea";
-import Button from "@/components/Ui/Button";
+import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/Textarea";
+import Button from "@/components/ui/button";
 import toast from "react-hot-toast";
 
 interface GalleryFormProps {

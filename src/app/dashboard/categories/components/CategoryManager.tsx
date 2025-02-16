@@ -5,7 +5,7 @@ import { CategoryForm } from "./CategoryForm";
 import { CategoryList } from "./CategoryList";
 import { Category, CategoryFormData } from "../types";
 import { createCategory, deleteCategory, updateCategory } from "../actions";
-import Button from "@/components/Ui/Button";
+import Button from "@/components/ui/button";
 import toast from "react-hot-toast";
 
 interface CategoryManagerProps {

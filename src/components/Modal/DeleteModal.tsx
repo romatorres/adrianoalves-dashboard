@@ -1,5 +1,5 @@
 import { TriangleAlert } from "lucide-react";
-import Button from "../Ui/Button";
+import Button from "../ui/button";
 
 interface DeleteModalProps {
   isOpen: boolean;

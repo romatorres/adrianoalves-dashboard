@@ -5,7 +5,7 @@ import { ServiceForm } from "./ServiceForm";
 import { ServiceList } from "./ServiceList";
 import { Service, ServiceFormData } from "../types";
 import { createService, deleteService, updateService } from "../actions";
-import Button from "@/components/Ui/Button";
+import Button from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 
 interface ServiceManagerProps {

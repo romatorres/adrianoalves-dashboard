@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/Ui/Button";
+import Button from "@/components/ui/button";
 import { TeamMember } from "../types";
 import Image from "next/image";
 import { useState } from "react";

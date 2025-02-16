@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { FileUploader } from "@/components/Upload/FileUploader";
 import { useUploadThing } from "@/utils/uploadthing-config";
-import Input from "@/components/Ui/Input";
-import Button from "@/components/Ui/Button";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 

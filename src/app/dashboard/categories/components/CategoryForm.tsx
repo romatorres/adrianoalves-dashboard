@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Category, CategoryFormData } from "../types";
-import Input from "@/components/Ui/Input";
-import Textarea from "@/components/Ui/Textarea";
-import Button from "@/components/Ui/Button";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/Textarea";
 import toast from "react-hot-toast";
 
 interface CategoryFormProps {

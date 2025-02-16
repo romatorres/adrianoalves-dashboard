@@ -39,11 +39,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${pollerOne.variable} ${ubuntu.variable} ${nunito.variable} ${bebasNeue.variable}`}
-    >
-      <body className="antialiased" suppressHydrationWarning>
+    <html lang="pt-BR">
+      <body
+        className={`${pollerOne.variable} ${ubuntu.variable} ${nunito.variable} ${bebasNeue.variable}`}
+      >
         <AuthProvider>
           <Providers>{children}</Providers>
         </AuthProvider>

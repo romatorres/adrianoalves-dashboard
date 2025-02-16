@@ -1,11 +1,14 @@
 "use client";
 
-import Slider from "react-slick";
 import { ProductCard } from "./ProductCard";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./slick-custom.css";
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Tipos movidos para um arquivo separado
 interface ProductCategory {
@@ -33,40 +36,6 @@ export function ProductGrid({
 }: ProductGridProps) {
   if (!isVisible) return null;
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          arrows: true,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          arrows: false,
-          dots: true,
-        },
-      },
-    ],
-  };
-
   return !products || products.length === 0 ? (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -92,14 +61,27 @@ export function ProductGrid({
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="w-full px-2 slick-container">
-            <Slider {...settings}>
-              {products.map((product) => (
-                <div key={product.id}>
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </Slider>
+          <div className="w-full px-2">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {products.map((product) => (
+                  <CarouselItem
+                    key={product.id}
+                    className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                  >
+                    <ProductCard product={product} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
           </div>
         </div>
       </div>

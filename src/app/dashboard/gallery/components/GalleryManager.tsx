@@ -9,7 +9,7 @@ import {
   deleteGalleryImage,
   updateGalleryImage,
 } from "../actions";
-import Button from "@/components/Ui/Button";
+import Button from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 
 interface GalleryManagerProps {
