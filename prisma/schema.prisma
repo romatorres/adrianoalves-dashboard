@@ -75,20 +75,19 @@ model TeamMember {
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String
-  email         String          @unique
+  email         String     @unique
   password      String? // Opcional para login social
-  role          String          @default("user")
+  role          String     @default("user")
   image         String?
-  active        Boolean         @default(true)
+  active        Boolean    @default(true)
   emailVerified DateTime?
   accounts      Account[]
   sessions      Session[]
   loginLogs     LoginLog[]
-  resetTokens   PasswordReset[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
 model SectionVisibility {
@@ -132,16 +131,6 @@ model LoginLog {
   ipAddress String?
   userAgent String?
   createdAt DateTime @default(now())
-}
-
-model PasswordReset {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  token     String   @unique
-  expires   DateTime
-  createdAt DateTime @default(now())
-  used      Boolean  @default(false)
 }
 
 model Section {

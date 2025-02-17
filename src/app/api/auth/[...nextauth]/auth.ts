@@ -2,13 +2,6 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { User as NextAuthUser } from "next-auth";
-
-// Definindo o tipo de usuário que o NextAuth espera
-interface User extends NextAuthUser {
-  role: string;
-  active: boolean;
-}
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -18,7 +11,7 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials): Promise<User | null> {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Credenciais incompletas");
         }
@@ -52,17 +45,15 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    jwt({ token, user }) {
       if (user) {
-        token.role = (user as User).role;
-        token.id = user.id;
+        token.role = user.role;
       }
       return token;
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role as string;
-        session.user.id = token.id as string;
+        session.user.role = token.role;
       }
       return session;
     },
