@@ -80,11 +80,7 @@ export const authOptions: AuthOptions = {
     async redirect({ url, baseUrl }) {
       console.log('Redirect callback:', { url, baseUrl });
       
-      if (url.includes('callbackUrl')) {
-        const callbackUrl = new URL(url).searchParams.get('callbackUrl');
-        return callbackUrl || `${baseUrl}/dashboard`;
-      }
-
+      // Força redirecionamento para /dashboard
       return `${baseUrl}/dashboard`;
     },
   },
@@ -102,7 +98,7 @@ export const authOptions: AuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
       },
     },
   },
