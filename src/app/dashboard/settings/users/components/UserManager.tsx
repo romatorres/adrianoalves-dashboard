@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { UserForm } from "./UserForm";
 import { UserList } from "./UserList";
-import ButtonForm from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/button-form";
 import toast from "react-hot-toast";
 
 interface User {

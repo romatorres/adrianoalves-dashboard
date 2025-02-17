@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import ButtonForm from "@/components/ui/ButtonForm";
-import Input from "@/components/ui/Input";
+import ButtonForm from "@/components/ui/button-form";
+import Input from "@/components/ui/input-custom";
 import toast from "react-hot-toast";
 
 interface User {

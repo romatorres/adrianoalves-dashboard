@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { TeamMember, TeamMemberFormData } from "../types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
-import Input from "@/components/ui/Input";
-import Textarea from "@/components/ui/Textarea";
-import ButtonForm from "@/components/ui/ButtonForm";
+import Input from "@/components/ui/input-custom";
+import Textarea from "@/components/ui/textarea-custom";
+import ButtonForm from "@/components/ui/button-form";
 import toast from "react-hot-toast";
 
 interface TeamFormProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonForm from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/button-form";
 import { User } from "../types";
 import { useState } from "react";
 import { DeleteModal } from "@/components/Modal/DeleteModal";

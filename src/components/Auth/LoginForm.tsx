@@ -2,8 +2,8 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import Button from "../ui/ButtonForm";
-import Input from "../ui/Input";
+import ButtonForm from "../ui/button-form";
+import Input from "../ui/input-custom";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
@@ -104,18 +104,18 @@ export function LoginForm() {
       </div>
 
       <div className="pt-10 flex flex-col gap-6">
-        <Button
+        <ButtonForm
           type="submit"
           disabled={isLoading}
           variant="primary"
           className="w-full"
         >
           {isLoading ? "Entrando..." : "Entrar"}
-        </Button>
+        </ButtonForm>
         <Link href="/">
-          <Button variant="link" className="w-full">
+          <ButtonForm variant="link" className="w-full">
             Voltar para Home
-          </Button>
+          </ButtonForm>
         </Link>
       </div>
     </form>

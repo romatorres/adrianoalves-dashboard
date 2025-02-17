@@ -9,7 +9,7 @@ import { PromotionForm } from "./PromotionForm";
 import { PromotionList } from "./PromotionList";
 import { Promotion } from "../types";
 import { deletePromotion } from "../actions";
-import ButtonForm from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/button-form";
 
 interface PromotionManagerProps {
   initialData?: PromotionFormData;

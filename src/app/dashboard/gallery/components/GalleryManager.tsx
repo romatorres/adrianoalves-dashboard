@@ -9,7 +9,7 @@ import {
   deleteGalleryImage,
   updateGalleryImage,
 } from "../actions";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/button-form";
 import { toast } from "react-hot-toast";
 
 interface GalleryManagerProps {
@@ -84,9 +84,9 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Galeria
         </h1>
-        <Button onClick={() => setShowForm(true)} variant="primary">
+        <ButtonForm onClick={() => setShowForm(true)} variant="primary">
           Adicionar Imagem
-        </Button>
+        </ButtonForm>
       </div>
 
       {showForm ? (
