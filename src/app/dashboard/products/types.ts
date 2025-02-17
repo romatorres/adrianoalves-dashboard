@@ -29,9 +29,3 @@ export interface ProductListResponse {
   error?: string;
 }
 
-export interface Category {
-  id: string;
-  name: string;
-  description?: string;
-  active: boolean;
-} 

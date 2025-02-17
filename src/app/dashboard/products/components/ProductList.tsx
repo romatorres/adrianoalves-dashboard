@@ -61,12 +61,18 @@ export function ProductList({
             className="relative bg-amber-100 p-4 rounded-lg shadow hover:shadow-md transition-shadow"
           >
             <div className="relative h-48 w-full mb-4">
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                fill
-                className="rounded-lg object-cover"
-              />
+              {product.imageUrl ? (
+                <Image
+                  src={product.imageUrl}
+                  alt={product.name}
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              ) : (
+                <div className="h-full w-full bg-gray-200 rounded-lg flex items-center justify-center">
+                  <span className="text-gray-400">Sem imagem</span>
+                </div>
+              )}
             </div>
             <h3 className="text-lg font-medium text-Background">
               {product.name}
@@ -79,14 +85,6 @@ export function ProductList({
                   currency: "BRL",
                 }).format(product.price)}
               </div>
-              <div className="text-sm text-gray-02">
-                Estoque: {product.stock} unidades
-              </div>
-              {product.productCategory && (
-                <div className="text-sm text-gray-02">
-                  Categoria: {product.productCategory.name}
-                </div>
-              )}
             </div>
             <div className="mt-2">
               <span

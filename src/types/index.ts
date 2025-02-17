@@ -3,7 +3,6 @@ export interface ProductFormData {
   description: string;
   price: number;
   imageUrl: string;
-  stock: number;
   active: boolean;
 }
 
@@ -14,7 +13,6 @@ export interface Product {
   price: number;
   imageUrl: string;
   active: boolean;
-  stock: number;
 }
 
 export interface Category {

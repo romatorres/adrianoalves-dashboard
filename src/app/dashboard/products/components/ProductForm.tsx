@@ -26,7 +26,6 @@ export function ProductForm({
     description: product?.description || "",
     price: product?.price || 0,
     imageUrl: product?.imageUrl || "",
-    stock: product?.stock || 0,
     active: product?.active ?? true,
   });
 
@@ -123,25 +122,6 @@ export function ProductForm({
             onChange={handleChange}
             min="0"
             step="0.01"
-            required
-            className="mt-1 block w-full"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="stock"
-            className="block text-sm font-medium text-gray-02"
-          >
-            Estoque
-          </label>
-          <Input
-            type="number"
-            id="stock"
-            name="stock"
-            value={formData.stock}
-            onChange={handleChange}
-            min="0"
             required
             className="mt-1 block w-full"
           />

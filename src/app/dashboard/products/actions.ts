@@ -21,7 +21,6 @@ export async function createProduct(data: ProductFormData): Promise<Product> {
       body: JSON.stringify({
         ...data,
         price: Number(data.price),
-        stock: Number(data.stock),
       }),
     });
 
@@ -51,7 +50,6 @@ export async function updateProduct(
       body: JSON.stringify({
         ...data,
         price: data.price ? Number(data.price) : undefined,
-        stock: data.stock ? Number(data.stock) : undefined,
       }),
     });
 
