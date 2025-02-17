@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 
 export async function GET(
-  _request: NextRequest,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
@@ -12,49 +12,49 @@ export async function GET(
     });
 
     if (!category) {
-      return NextResponse.json(
-        { success: false, error: "Categoria não encontrada" },
-        { status: 404 }
-      );
+      return NextResponse.json({
+        success: false,
+        error: "Categoria não encontrada"
+      }, { status: 404 });
     }
 
     return NextResponse.json({ success: true, data: category });
   } catch {
-    return NextResponse.json(
-      { success: false, error: "Erro ao buscar categoria" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      success: false,
+      error: "Erro ao buscar categoria"
+    }, { status: 500 });
   }
 }
 
 export async function PUT(
-  request: NextRequest,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
     const data = await request.json();
     const category = await prisma.productCategory.update({
       where: { id: params.id },
-      data,
+      data
     });
 
     return NextResponse.json({ success: true, data: category });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-      return NextResponse.json(
-        { success: false, error: "Categoria não encontrada" },
-        { status: 404 }
-      );
+      return NextResponse.json({
+        success: false,
+        error: "Categoria não encontrada"
+      }, { status: 404 });
     }
-    return NextResponse.json(
-      { success: false, error: "Erro ao atualizar categoria" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      success: false,
+      error: "Erro ao atualizar categoria"
+    }, { status: 500 });
   }
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
@@ -67,9 +67,9 @@ export async function DELETE(
       message: "Categoria excluída com sucesso"
     });
   } catch {
-    return NextResponse.json(
-      { success: false, error: "Erro ao excluir categoria" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      success: false,
+      error: "Erro ao excluir categoria"
+    }, { status: 500 });
   }
 } 
