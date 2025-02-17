@@ -4,11 +4,11 @@ import { Prisma } from "@prisma/client";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const category = await prisma.productCategory.findUnique({
-      where: { id: params.id },
+      where: { id: context.params.id },
     });
 
     if (!category) {
@@ -29,12 +29,12 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const data = await request.json();
     const category = await prisma.productCategory.update({
-      where: { id: params.id },
+      where: { id: context.params.id },
       data
     });
 
@@ -55,11 +55,11 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await prisma.productCategory.delete({
-      where: { id: params.id },
+      where: { id: context.params.id },
     });
 
     return NextResponse.json({
