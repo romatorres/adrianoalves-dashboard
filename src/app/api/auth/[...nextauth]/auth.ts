@@ -12,7 +12,10 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        console.log("Authorize attempt for:", credentials?.email);
+
         if (!credentials?.email || !credentials?.password) {
+          console.log("Missing credentials");
           throw new Error("Credenciais incompletas");
         }
 
@@ -21,32 +24,38 @@ export const authOptions: AuthOptions = {
             where: { email: credentials.email },
           });
 
+          console.log("User found:", user ? "yes" : "no");
+
           if (!user || !user.password) {
+            console.log("User not found or no password");
             throw new Error("Email não encontrado");
           }
 
           if (!user.active) {
+            console.log("User is inactive");
             throw new Error("Usuário desativado");
           }
 
           const isPasswordValid = await compare(credentials.password, user.password);
+          console.log("Password valid:", isPasswordValid);
 
           if (!isPasswordValid) {
             throw new Error("Senha incorreta");
           }
 
-          return {
+          const userResponse = {
             id: user.id,
             name: user.name,
             email: user.email,
             role: user.role,
             active: user.active,
           };
+
+          console.log("Auth successful, returning user");
+          return userResponse;
         } catch (error) {
-          if (error instanceof Error) {
-            throw new Error(error.message);
-          }
-          throw new Error("Erro ao autenticar");
+          console.error("Auth error:", error);
+          throw error;
         }
       },
     }),
@@ -78,12 +87,13 @@ export const authOptions: AuthOptions = {
   },
   cookies: {
     sessionToken: {
-      name: `next-auth.session-token`,
+      name: 'next-auth.session-token',
       options: {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
+        domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined,
       },
     },
   },
