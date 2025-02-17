@@ -53,22 +53,38 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log('JWT callback:', { token, user });
       if (user) {
         token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
+      console.log('Session callback:', { session, token });
       if (session.user) {
         session.user.role = token.role as string;
+        session.user.id = token.id as string;
       }
       return session;
     },
   },
   pages: {
     signIn: "/login",
+    error: '/auth/error',
   },
   session: {
     strategy: "jwt",
+  },
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
   },
 }; 
