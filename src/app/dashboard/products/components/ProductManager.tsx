@@ -7,7 +7,7 @@ import { Product } from "@/types";
 import { ProductFormData } from "../types";
 import { createProduct, deleteProduct, updateProduct } from "../actions";
 import Link from "next/link";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { toast } from "react-hot-toast";
 
 interface ProductCategory {
@@ -89,9 +89,11 @@ export function ProductManager({
         </h1>
         <div className="flex gap-4">
           <Link href="/dashboard/categories">
-            <Button variant="secondary">Gerenciar Categorias</Button>
+            <ButtonForm variant="secondary">Gerenciar Categorias</ButtonForm>
           </Link>
-          <Button onClick={() => setShowForm(true)}>Adicionar Produto</Button>
+          <ButtonForm onClick={() => setShowForm(true)}>
+            Adicionar Produto
+          </ButtonForm>
         </div>
       </div>
 

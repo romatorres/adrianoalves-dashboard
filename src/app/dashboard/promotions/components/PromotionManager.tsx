@@ -9,7 +9,7 @@ import { PromotionForm } from "./PromotionForm";
 import { PromotionList } from "./PromotionList";
 import { Promotion } from "../types";
 import { deletePromotion } from "../actions";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 
 interface PromotionManagerProps {
   initialData?: PromotionFormData;
@@ -111,9 +111,9 @@ export default function PromotionManager({
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Promoções
         </h1>
-        <Button onClick={() => setShowForm(true)} variant="primary">
+        <ButtonForm onClick={() => setShowForm(true)} variant="primary">
           Adicionar Promoção
-        </Button>
+        </ButtonForm>
       </div>
 
       {showForm ? (

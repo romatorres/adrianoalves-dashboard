@@ -3,7 +3,7 @@
 import { Service } from "../types";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { toast } from "react-hot-toast";
 
@@ -97,17 +97,20 @@ export function ServiceList({
               </span>
             </div>
             <div className="mt-4 flex justify-end space-x-2">
-              <Button onClick={() => onEdit(service)} variant="secondary_card">
+              <ButtonForm
+                onClick={() => onEdit(service)}
+                variant="secondary_card"
+              >
                 Editar
-              </Button>
-              <Button
+              </ButtonForm>
+              <ButtonForm
                 onClick={() => handleDelete(service)}
                 disabled={deletingId === service.id}
                 className="disabled:opacity-50"
                 variant="danger_card"
               >
                 {deletingId === service.id ? "Excluindo..." : "Excluir"}
-              </Button>
+              </ButtonForm>
             </div>
           </div>
         ))}

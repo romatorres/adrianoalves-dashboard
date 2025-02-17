@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { User } from "../types";
 import { useState } from "react";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
@@ -69,19 +69,19 @@ export function UserList({ users = [], onEdit, onDelete }: UserListProps) {
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <Button
+                    <ButtonForm
                       onClick={() => onEdit(user)}
                       variant="secondary_card"
                     >
                       Editar
-                    </Button>
-                    <Button
+                    </ButtonForm>
+                    <ButtonForm
                       onClick={() => handleDeleteClick(user)}
                       variant="danger_card"
                       disabled={deletingId === user.id}
                     >
                       {deletingId === user.id ? "Excluindo..." : "Excluir"}
-                    </Button>
+                    </ButtonForm>
                   </div>
                 </div>
               </div>

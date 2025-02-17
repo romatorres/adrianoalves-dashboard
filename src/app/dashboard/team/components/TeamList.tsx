@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { TeamMember } from "../types";
 import Image from "next/image";
 import { useState } from "react";
@@ -146,16 +146,19 @@ export function TeamList({ members = [], onEdit, onDelete }: TeamListProps) {
             </div>
 
             <div className="mt-4 flex justify-end space-x-2">
-              <Button onClick={() => onEdit(member)} variant="secondary_card">
+              <ButtonForm
+                onClick={() => onEdit(member)}
+                variant="secondary_card"
+              >
                 Editar
-              </Button>
-              <Button
+              </ButtonForm>
+              <ButtonForm
                 onClick={() => handleDelete(member)}
                 disabled={deletingId === member.id}
                 variant="danger_card"
               >
                 {deletingId === member.id ? "Excluindo..." : "Excluir"}
-              </Button>
+              </ButtonForm>
             </div>
           </div>
         ))}

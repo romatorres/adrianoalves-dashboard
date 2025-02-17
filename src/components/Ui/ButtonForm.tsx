@@ -35,7 +35,7 @@ const buttonVariants = {
   link: "text-gray-01 hover:text-gray-02 border-none px-3 py-1",
 };
 
-const Button: React.FC<ButtonProps> = ({
+const ButtonForm: React.FC<ButtonProps> = ({
   variant = "primary",
   isLoading,
   children,
@@ -55,4 +55,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default ButtonForm;

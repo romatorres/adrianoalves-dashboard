@@ -3,7 +3,7 @@
 import { Promotion } from "../types";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import toast from "react-hot-toast";
 
@@ -102,19 +102,19 @@ export function PromotionList({
               </span>
             </div>
             <div className="mt-4 flex justify-end space-x-2">
-              <Button
+              <ButtonForm
                 onClick={() => onEdit(promotion)}
                 variant="secondary_card"
               >
                 Editar
-              </Button>
-              <Button
+              </ButtonForm>
+              <ButtonForm
                 onClick={() => handleDelete(promotion)}
                 disabled={deletingId === promotion.id}
                 variant="danger_card"
               >
                 {deletingId === promotion.id ? "Excluindo..." : "Excluir"}
-              </Button>
+              </ButtonForm>
             </div>
           </div>
         ))}

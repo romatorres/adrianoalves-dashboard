@@ -10,7 +10,7 @@ import {
   deleteTeamMember,
   updateTeamMember,
 } from "../actions";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import toast from "react-hot-toast";
 
 interface TeamManagerProps {
@@ -77,9 +77,9 @@ export function TeamManager({ initialMembers }: TeamManagerProps) {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-background">Gerenciar Equipe</h1>
-        <Button onClick={() => setShowForm(true)} variant="primary">
+        <ButtonForm onClick={() => setShowForm(true)} variant="primary">
           Adicionar Membro
-        </Button>
+        </ButtonForm>
       </div>
 
       {showForm ? (

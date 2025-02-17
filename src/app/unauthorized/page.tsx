@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 
 export default function Unauthorized() {
   return (
@@ -12,9 +12,9 @@ export default function Unauthorized() {
           Você não tem permissão para acessar esta página.
         </p>
         <Link href="/dashboard">
-          <Button variant="primary" className="w-full">
+          <ButtonForm variant="primary" className="w-full">
             Voltar para Dashboard
-          </Button>
+          </ButtonForm>
         </Link>
       </div>
     </div>

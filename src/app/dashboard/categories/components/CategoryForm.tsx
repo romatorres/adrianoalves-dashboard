@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Category, CategoryFormData } from "../types";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import toast from "react-hot-toast";
@@ -103,17 +103,17 @@ export function CategoryForm({
       </div>
 
       <div className="flex justify-end gap-3">
-        <Button
+        <ButtonForm
           type="button"
           onClick={onCancel}
           disabled={isLoading}
           variant="outline"
         >
           Cancelar
-        </Button>
-        <Button type="submit" disabled={isLoading} variant="secondary">
+        </ButtonForm>
+        <ButtonForm type="submit" disabled={isLoading} variant="secondary">
           {isLoading ? "Salvando..." : category ? "Atualizar" : "Criar"}
-        </Button>
+        </ButtonForm>
       </div>
     </form>
   );

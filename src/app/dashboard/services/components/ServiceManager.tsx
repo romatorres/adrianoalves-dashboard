@@ -5,7 +5,7 @@ import { ServiceForm } from "./ServiceForm";
 import { ServiceList } from "./ServiceList";
 import { Service, ServiceFormData } from "../types";
 import { createService, deleteService, updateService } from "../actions";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { toast } from "react-hot-toast";
 
 interface ServiceManagerProps {
@@ -76,7 +76,9 @@ export function ServiceManager({ initialServices }: ServiceManagerProps) {
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Serviços
         </h1>
-        <Button onClick={() => setShowForm(true)}>Adicionar Serviço</Button>
+        <ButtonForm onClick={() => setShowForm(true)}>
+          Adicionar Serviço
+        </ButtonForm>
       </div>
 
       {showForm ? (

@@ -5,7 +5,7 @@ import { TeamMember, TeamMemberFormData } from "../types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import toast from "react-hot-toast";
 
 interface TeamFormProps {
@@ -203,17 +203,17 @@ export function TeamForm({
       </div>
 
       <div className="flex justify-end gap-3">
-        <Button
+        <ButtonForm
           type="button"
           onClick={onCancel}
           disabled={isLoading}
           variant="outline"
         >
           Cancelar
-        </Button>
-        <Button type="submit" disabled={isLoading} variant="secondary">
+        </ButtonForm>
+        <ButtonForm type="submit" disabled={isLoading} variant="secondary">
           {isLoading ? "Salvando..." : member ? "Atualizar" : "Criar Membro"}
-        </Button>
+        </ButtonForm>
       </div>
     </form>
   );

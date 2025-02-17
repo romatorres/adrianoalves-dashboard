@@ -5,7 +5,7 @@ import { CategoryForm } from "./CategoryForm";
 import { CategoryList } from "./CategoryList";
 import { Category, CategoryFormData } from "../types";
 import { createCategory, deleteCategory, updateCategory } from "../actions";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import toast from "react-hot-toast";
 
 interface CategoryManagerProps {
@@ -73,7 +73,9 @@ export function CategoryManager({ initialCategories }: CategoryManagerProps) {
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Categorias
         </h1>
-        <Button onClick={() => setShowForm(true)}>Adicionar Categoria</Button>
+        <ButtonForm onClick={() => setShowForm(true)}>
+          Adicionar Categoria
+        </ButtonForm>
       </div>
 
       {showForm ? (

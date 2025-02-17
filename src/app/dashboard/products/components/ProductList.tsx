@@ -3,7 +3,7 @@
 import { Product } from "../types";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { toast } from "react-hot-toast";
 
@@ -100,16 +100,19 @@ export function ProductList({
               </span>
             </div>
             <div className="mt-4 flex justify-end space-x-2">
-              <Button onClick={() => onEdit(product)} variant="secondary_card">
+              <ButtonForm
+                onClick={() => onEdit(product)}
+                variant="secondary_card"
+              >
                 Editar
-              </Button>
-              <Button
+              </ButtonForm>
+              <ButtonForm
                 onClick={() => handleDelete(product)}
                 disabled={deletingId === product.id}
                 variant="danger_card"
               >
                 {deletingId === product.id ? "Excluindo..." : "Excluir"}
-              </Button>
+              </ButtonForm>
             </div>
           </div>
         ))}

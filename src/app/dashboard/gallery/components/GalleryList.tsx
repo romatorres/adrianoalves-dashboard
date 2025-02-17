@@ -5,7 +5,7 @@ import { GalleryImage } from "../types";
 import Image from "next/image";
 import { ImageModal } from "@/components/ImageModal/ImageModal";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { toast } from "react-hot-toast";
 
 interface GalleryListProps {
@@ -105,17 +105,20 @@ export function GalleryList({
               </span>
             </div>
             <div className="mt-4 flex justify-end space-x-2">
-              <Button onClick={() => onEdit(image)} variant="secondary_card">
+              <ButtonForm
+                onClick={() => onEdit(image)}
+                variant="secondary_card"
+              >
                 Editar
-              </Button>
-              <Button
+              </ButtonForm>
+              <ButtonForm
                 onClick={() => handleDelete(image)}
                 disabled={deletingId === image.id}
                 className="disabled:opacity-50"
                 variant="danger_card"
               >
                 {deletingId === image.id ? "Excluindo..." : "Excluir"}
-              </Button>
+              </ButtonForm>
             </div>
           </div>
         ))}

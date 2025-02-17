@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FileUploader } from "@/components/Upload/FileUploader";
 import { useUploadThing } from "@/utils/uploadthing-config";
 import Input from "@/components/ui/Input";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 
@@ -60,20 +60,20 @@ export default function ImageUpload({
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
-        <Button
+        <ButtonForm
           type="button"
           onClick={() => setIsExternalUrl(true)}
           variant={`${isExternalUrl ? "link_enabled" : "link_disabled"}`}
         >
           Link Externo
-        </Button>
-        <Button
+        </ButtonForm>
+        <ButtonForm
           type="button"
           onClick={() => setIsExternalUrl(false)}
           variant={`${isExternalUrl ? "link_disabled" : "link_enabled"}`}
         >
           Upload Local
-        </Button>
+        </ButtonForm>
       </div>
 
       {isExternalUrl ? (

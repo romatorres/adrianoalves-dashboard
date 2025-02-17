@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import Input from "@/components/ui/Input";
 import toast from "react-hot-toast";
 
@@ -106,9 +106,9 @@ export function UserForm({ user, onSubmit, isLoading }: UserFormProps) {
       </div>
 
       <div className="flex justify-end space-x-2">
-        <Button type="submit" disabled={isLoading} variant="primary">
+        <ButtonForm type="submit" disabled={isLoading} variant="primary">
           {isLoading ? "Salvando..." : "Salvar"}
-        </Button>
+        </ButtonForm>
       </div>
     </form>
   );

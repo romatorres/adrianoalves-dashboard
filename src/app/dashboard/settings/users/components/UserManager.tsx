@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { UserForm } from "./UserForm";
 import { UserList } from "./UserList";
-import Button from "@/components/ui/ButtonForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 import toast from "react-hot-toast";
 
 interface User {
@@ -106,9 +106,9 @@ export function UserManager({ initialUsers }: UserManagerProps) {
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Usuários
         </h1>
-        <Button onClick={() => setShowForm(true)} variant="primary">
+        <ButtonForm onClick={() => setShowForm(true)} variant="primary">
           Novo Usuário
-        </Button>
+        </ButtonForm>
       </div>
 
       {showForm && (
