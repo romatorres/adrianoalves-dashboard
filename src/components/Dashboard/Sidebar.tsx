@@ -11,7 +11,6 @@ import {
   Users,
   Tag,
   Settings,
-  Layers,
   Menu,
   X,
   ChevronDown,
@@ -42,11 +41,7 @@ const menuItems: MenuItem[] = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
   { name: "Serviços", href: "/dashboard/services", icon: Scissors },
   { name: "Produtos", href: "/dashboard/products", icon: ShoppingBag },
-  {
-    name: "Categorias",
-    href: "/dashboard/categories",
-    icon: Layers,
-  },
+
   { name: "Galeria", href: "/dashboard/gallery", icon: ImageIcon },
   { name: "Equipe", href: "/dashboard/team", icon: Users },
   { name: "Promoções", href: "/dashboard/promotions", icon: Tag },
