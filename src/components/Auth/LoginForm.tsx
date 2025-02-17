@@ -31,7 +31,7 @@ export function LoginForm() {
       } else {
         setError("Credenciais inválidas");
       }
-    } catch (error) {
+    } catch {
       setError("Erro ao fazer login");
     } finally {
       setIsLoading(false);
