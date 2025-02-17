@@ -2,32 +2,8 @@
 
 import { LoginForm } from "@/components/Auth/LoginForm";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const result = await signIn("credentials", {
-        email: email,
-        password: password,
-        redirect: false, // Importante: não deixar o NextAuth redirecionar
-      });
-
-      if (result?.ok) {
-        router.push("/dashboard");
-      } else {
-        setError("Credenciais inválidas");
-      }
-    } catch (error) {
-      setError("Erro ao fazer login");
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary">
       <div className="max-w-xl w-full p-8 mx-3 bg-white shadow-md rounded-lg">

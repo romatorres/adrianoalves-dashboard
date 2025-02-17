@@ -1,99 +1,68 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useState } from "react";
-import ButtonForm from "../Ui/button-form";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Input from "../Ui/input-custom";
-import toast from "react-hot-toast";
+import ButtonForm from "../Ui/button-form";
 import Link from "next/link";
 
 export function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
+    setError("");
 
     try {
-      const formData = new FormData(event.currentTarget);
-      const email = formData.get("email");
-      const password = formData.get("password");
-
-      if (!email || !password) {
-        toast.error("Por favor, preencha todos os campos");
-        return;
-      }
-
       const result = await signIn("credentials", {
-        email: email.toString(),
-        password: password.toString(),
+        email,
+        password,
         redirect: false,
       });
 
       if (result?.ok) {
-        toast.success("Login realizado com sucesso!");
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
       } else {
-        console.error("Erro de login:", result?.error);
-        switch (result?.error) {
-          case "CredentialsSignin":
-            toast.error("Email ou senha incorretos");
-            break;
-          case "Email não encontrado":
-            toast.error("Email não cadastrado");
-            break;
-          case "Senha incorreta":
-            toast.error("Senha incorreta");
-            break;
-          case "Usuário desativado":
-            toast.error("Usuário desativado");
-            break;
-          default:
-            toast.error(`Erro ao fazer login: ${result?.error}`);
-        }
+        setError("Credenciais inválidas");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Erro ao conectar ao servidor");
+      setError("Erro ao fazer login");
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          {error}
+        </div>
+      )}
       <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-02"
-        >
-          Email
-        </label>
         <Input
-          id="email"
-          name="email"
           type="email"
-          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
           required
         />
       </div>
-
       <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-02"
-        >
-          Senha
-        </label>
         <Input
-          id="password"
-          name="password"
           type="password"
-          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Senha"
           required
         />
       </div>
-
       <div className="text-sm">
         <Link
           href="/forgot-password"
@@ -102,22 +71,9 @@ export function LoginForm() {
           Esqueceu sua senha?
         </Link>
       </div>
-
-      <div className="pt-10 flex flex-col gap-6">
-        <ButtonForm
-          type="submit"
-          disabled={isLoading}
-          variant="primary"
-          className="w-full"
-        >
-          {isLoading ? "Entrando..." : "Entrar"}
-        </ButtonForm>
-        <Link href="/">
-          <ButtonForm variant="link" className="w-full">
-            Voltar para Home
-          </ButtonForm>
-        </Link>
-      </div>
+      <ButtonForm type="submit" disabled={isLoading}>
+        {isLoading ? "Entrando..." : "Entrar"}
+      </ButtonForm>
     </form>
   );
 }
