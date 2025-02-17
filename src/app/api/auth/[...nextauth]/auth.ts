@@ -79,7 +79,13 @@ export const authOptions: AuthOptions = {
     },
     async redirect({ url, baseUrl }) {
       console.log('Redirect callback:', { url, baseUrl });
-      return url.startsWith(baseUrl) ? url : `${baseUrl}/dashboard`;
+      
+      if (url.includes('callbackUrl')) {
+        const callbackUrl = new URL(url).searchParams.get('callbackUrl');
+        return callbackUrl || `${baseUrl}/dashboard`;
+      }
+
+      return `${baseUrl}/dashboard`;
     },
   },
   pages: {
