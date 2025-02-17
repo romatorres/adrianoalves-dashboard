@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Product, ProductFormData } from "../types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
-import { Category } from "../../categories/types";
 import Input from "@/components/Ui/input-custom";
 import Textarea from "@/components/Ui/textarea-custom";
 import ButtonForm from "@/components/Ui/button-form";
@@ -11,7 +10,6 @@ import { toast } from "react-hot-toast";
 
 interface ProductFormProps {
   product?: Product;
-  categories: Category[];
   onSubmit: (data: ProductFormData) => Promise<void>;
   onCancel: () => void;
   isLoading?: boolean;
@@ -19,7 +17,6 @@ interface ProductFormProps {
 
 export function ProductForm({
   product,
-  categories,
   onSubmit,
   onCancel,
   isLoading,
@@ -30,7 +27,6 @@ export function ProductForm({
     price: product?.price || 0,
     imageUrl: product?.imageUrl || "",
     stock: product?.stock || 0,
-    categoryId: product?.categoryId || null,
     active: product?.active ?? true,
   });
 
@@ -150,29 +146,6 @@ export function ProductForm({
             className="mt-1 block w-full"
           />
         </div>
-      </div>
-
-      <div>
-        <label
-          htmlFor="categoryId"
-          className="block text-sm font-medium text-gray-02"
-        >
-          Categoria
-        </label>
-        <select
-          id="categoryId"
-          name="categoryId"
-          value={formData.categoryId || ""}
-          onChange={handleChange}
-          className="mt-1 block px-3 py-2 w-full rounded-md bg-gray-04 text-background border-gray-300 focus:border-gray-03 focus:ring-gray-02"
-        >
-          <option value="">Selecione uma categoria</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
       </div>
 
       <div>

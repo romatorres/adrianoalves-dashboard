@@ -15,18 +15,27 @@ function serializeProduct(product: {
 export async function GET() {
   try {
     const products = await prisma.product.findMany({
-      orderBy: { createdAt: "desc" },
+      where: {
+        active: true
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
     });
+
     return NextResponse.json({
       success: true,
-      data: products.map(serializeProduct)
+      data: products.map(product => ({
+        ...product,
+        price: Number(product.price)
+      }))
     });
   } catch (error) {
     console.error("Error fetching products:", error);
-    return NextResponse.json(
-      { success: false, error: "Error fetching products" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      success: false,
+      error: "Error fetching products"
+    }, { status: 500 });
   }
 }
 

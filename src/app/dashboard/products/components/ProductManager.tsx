@@ -3,29 +3,16 @@
 import { useState } from "react";
 import { ProductForm } from "./ProductForm";
 import { ProductList } from "./ProductList";
-import { Product } from "@/types";
-import { ProductFormData } from "../types";
+import { Product, ProductFormData } from "../types";
 import { createProduct, deleteProduct, updateProduct } from "../actions";
-import Link from "next/link";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
 
-interface ProductCategory {
-  id: string;
-  name: string;
-  description: string | null;
-  active: boolean;
-}
-
 interface ProductManagerProps {
   initialProducts: Product[];
-  categories: ProductCategory[];
 }
 
-export function ProductManager({
-  initialProducts,
-  categories,
-}: ProductManagerProps) {
+export function ProductManager({ initialProducts }: ProductManagerProps) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -88,9 +75,6 @@ export function ProductManager({
           Gerenciar Produtos
         </h1>
         <div className="flex gap-4">
-          <Link href="/dashboard/categories">
-            <ButtonForm variant="secondary">Gerenciar Categorias</ButtonForm>
-          </Link>
           <ButtonForm onClick={() => setShowForm(true)}>
             Adicionar Produto
           </ButtonForm>
@@ -115,7 +99,6 @@ export function ProductManager({
           </div>
           <ProductForm
             product={selectedProduct || undefined}
-            categories={categories}
             onSubmit={handleSubmit}
             isLoading={isLoading}
             onCancel={handleCloseForm}

@@ -4,7 +4,6 @@ export interface ProductFormData {
   price: number;
   imageUrl: string;
   stock: number;
-  categoryId: string | null;
   active: boolean;
 }
 
@@ -16,11 +15,6 @@ export interface Product {
   imageUrl: string;
   active: boolean;
   stock: number;
-  categoryId: string | null;
-  productCategory?: {
-    name: string;
-    id: string;
-  } | null;
 }
 
 export interface Category {

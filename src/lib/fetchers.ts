@@ -1,23 +1,17 @@
 import { prisma } from "@/lib/prisma";
-import { Product } from "@/components/Shop/types";
+import { Product } from "@/app/dashboard/products/types";
 
 export async function getProducts(): Promise<Product[]> {
   const products = await prisma.product.findMany({
     where: { active: true },
-    include: {
-      productCategory: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-    orderBy: { createdAt: "desc" },
+    orderBy: {
+      createdAt: "desc"
+    }
   });
 
-  return products.map((product) => ({
+  return products.map(product => ({
     ...product,
-    price: Number(product.price),
+    price: Number(product.price)
   }));
 }
 
