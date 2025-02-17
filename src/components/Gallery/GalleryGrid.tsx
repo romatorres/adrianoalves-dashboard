@@ -11,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 interface GalleryImage {
   id: string;
@@ -80,17 +81,18 @@ export function GalleryGrid({
 
         <div className="gallery-slider">
           <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
             className="w-full"
+            plugins={[
+              Autoplay({
+                delay: 2000,
+              }),
+            ]}
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {images.map((image, index) => (
                 <CarouselItem
                   key={image.id}
-                  className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                  className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
                   <GalleryCard
                     image={image}
