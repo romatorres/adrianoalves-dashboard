@@ -77,6 +77,10 @@ export const authOptions: AuthOptions = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      console.log('Redirect callback:', { url, baseUrl });
+      return url.startsWith(baseUrl) ? url : `${baseUrl}/dashboard`;
+    },
   },
   pages: {
     signIn: "/login",
@@ -93,7 +97,6 @@ export const authOptions: AuthOptions = {
         sameSite: 'lax',
         path: '/',
         secure: true,
-        domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined,
       },
     },
   },
