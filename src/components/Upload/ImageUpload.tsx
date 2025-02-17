@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { FileUploader } from "@/components/Upload/FileUploader";
 import { useUploadThing } from "@/utils/uploadthing-config";
-import Input from "@/components/ui/input-custom";
-import ButtonForm from "@/components/ui/button-form";
+import Input from "@/components/Ui/input-custom";
+import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 

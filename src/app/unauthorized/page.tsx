@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ButtonForm from "@/components/ui/button-form";
+import ButtonForm from "@/components/Ui/button-form";
 
 export default function Unauthorized() {
   return (

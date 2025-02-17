@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import Button from "../ui/button";
+import Button from "../ui-shadcn/button";
 
 export function LogoutButton() {
   const { handleLogout } = useAuth();

@@ -10,7 +10,7 @@ import {
   deleteTeamMember,
   updateTeamMember,
 } from "../actions";
-import ButtonForm from "@/components/ui/button-form";
+import ButtonForm from "@/components/Ui/button-form";
 import toast from "react-hot-toast";
 
 interface TeamManagerProps {

@@ -3,7 +3,7 @@
 import { Service } from "../types";
 import { useState } from "react";
 import Image from "next/image";
-import ButtonForm from "@/components/ui/button-form";
+import ButtonForm from "@/components/Ui/button-form";
 import { DeleteModal } from "@/components/Modal/DeleteModal";
 import { toast } from "react-hot-toast";
 

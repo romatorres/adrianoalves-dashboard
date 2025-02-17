@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Product, ProductFormData } from "../types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
 import { Category } from "../../categories/types";
-import Input from "@/components/ui/input-custom";
-import Textarea from "@/components/ui/textarea-custom";
-import ButtonForm from "@/components/ui/button-form";
+import Input from "@/components/Ui/input-custom";
+import Textarea from "@/components/Ui/textarea-custom";
+import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
 
 interface ProductFormProps {
