@@ -19,6 +19,8 @@ import { About } from "@/components/About/About";
 import { prisma } from "@/lib/prisma";
 import ServiceGrid from "@/components/Services/ServiceGrid";
 
+export const revalidate = 0;
+
 export default async function Home() {
   const sections = await prisma.sectionVisibility.findMany();
   const sectionsMap = sections.reduce((acc, section) => {

@@ -1,4 +1,4 @@
-import type { Product, ProductFormData } from "./types";
+import type { Product, ProductFormData } from "@/types";
 import {
   deleteUploadThingFile,
   isUploadThingUrl,
