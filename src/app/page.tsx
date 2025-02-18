@@ -36,16 +36,6 @@ export default async function Home() {
     getServices(),
   ]);
 
-  const serializedProducts = (products || []).map((product) => ({
-    ...product,
-    price: Number(product.price),
-  }));
-
-  const serializedServices = (services || []).map((service) => ({
-    ...service,
-    price: Number(service.price),
-  }));
-
   return (
     <main>
       <section id="home">
@@ -62,19 +52,13 @@ export default async function Home() {
         <About />
       </section>
       <section id="shop">
-        <ProductGrid
-          products={serializedProducts}
-          isVisible={sectionsMap.products}
-        />
+        <ProductGrid products={products} isVisible={sectionsMap.products} />
       </section>
       <section id="team">
         <TeamGrid members={members} isVisible={sectionsMap.team} />
       </section>
       <section id="service">
-        <ServiceGrid
-          services={serializedServices}
-          isVisible={sectionsMap.services}
-        />
+        <ServiceGrid services={services} isVisible={sectionsMap.services} />
       </section>
       <section id="gallery">
         <GalleryGrid images={images} isVisible={sectionsMap.gallery} />

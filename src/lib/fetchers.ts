@@ -58,7 +58,10 @@ export async function getServices() {
       where: { active: true },
       orderBy: { name: "asc" },
     });
-    return services;
+    return services.map(service => ({
+      ...service,
+      price: Number(service.price)
+    }));
   } catch (error) {
     console.error("Error fetching services:", error);
     return [];
