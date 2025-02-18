@@ -11,6 +11,7 @@ import {
 } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
+import { Plus } from "lucide-react";
 
 interface GalleryManagerProps {
   initialImages: GalleryImage[];
@@ -84,8 +85,13 @@ export function GalleryManager({ initialImages }: GalleryManagerProps) {
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Galeria
         </h1>
-        <ButtonForm onClick={() => setShowForm(true)} variant="primary">
-          Adicionar Imagem
+        <ButtonForm
+          onClick={() => setShowForm(true)}
+          variant="primary"
+          className="flex items-center gap-2"
+        >
+          <Plus />
+          <span className="hidden md:flex">Imagem</span>
         </ButtonForm>
       </div>
 

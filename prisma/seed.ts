@@ -10,8 +10,6 @@ async function main() {
     { name: 'team', active: true },
   ]
 
-  console.log('Seeding sections...');
-
   for (const section of sections) {
     await prisma.sectionVisibility.upsert({
       where: { name: section.name },
@@ -23,7 +21,6 @@ async function main() {
     })
   }
 
-  console.log('Seed completed!');
 }
 
 main()

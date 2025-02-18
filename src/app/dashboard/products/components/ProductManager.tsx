@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { ProductForm } from "./ProductForm";
 import { ProductList } from "./ProductList";
-import { Product, ProductFormData } from "../types";
+import { Product, ProductFormData } from "@/types";
 import { createProduct, deleteProduct, updateProduct } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
+import { Plus } from "lucide-react";
 
 interface ProductManagerProps {
   initialProducts: Product[];
@@ -71,12 +72,16 @@ export function ProductManager({ initialProducts }: ProductManagerProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-background">
+        <h1 className="md:text-2xl text-xl font-bold text-background">
           Gerenciar Produtos
         </h1>
         <div className="flex gap-4">
-          <ButtonForm onClick={() => setShowForm(true)}>
-            Adicionar Produto
+          <ButtonForm
+            onClick={() => setShowForm(true)}
+            className="flex items-center gap-2"
+          >
+            <Plus />
+            <span className="hidden md:flex">Produto</span>
           </ButtonForm>
         </div>
       </div>

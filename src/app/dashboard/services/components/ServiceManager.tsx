@@ -7,6 +7,7 @@ import { Service, ServiceFormData } from "../types";
 import { createService, deleteService, updateService } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
+import { Plus } from "lucide-react";
 
 interface ServiceManagerProps {
   initialServices: Service[];
@@ -73,11 +74,15 @@ export function ServiceManager({ initialServices }: ServiceManagerProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-background">
+        <h1 className="md:text-2xl text-xl font-bold text-background">
           Gerenciar Serviços
         </h1>
-        <ButtonForm onClick={() => setShowForm(true)}>
-          Adicionar Serviço
+        <ButtonForm
+          onClick={() => setShowForm(true)}
+          className="flex items-center gap-2"
+        >
+          <Plus />
+          <span className="hidden md:flex">Serviço</span>
         </ButtonForm>
       </div>
 

@@ -10,15 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui-shadcn/carousel";
 import Autoplay from "embla-carousel-autoplay";
-
-interface Service {
-  id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  imageUrl: string;
-  duration: number;
-}
+import { Service } from "@/types";
 
 interface ServiceGridProps {
   services: Service[];

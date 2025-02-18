@@ -10,21 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui-shadcn/carousel";
 import Autoplay from "embla-carousel-autoplay";
-
-// Tipos movidos para um arquivo separado
-interface ProductCategory {
-  id: string;
-  name: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string | null;
-  productCategory?: ProductCategory | null;
-}
+import { Product } from "@/types";
 
 interface ProductGridProps {
   products: Product[];

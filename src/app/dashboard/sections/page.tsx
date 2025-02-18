@@ -27,8 +27,6 @@ export default function SectionsPage() {
 
   const fetchSections = async () => {
     try {
-      console.log("Fetching sections...");
-
       // Primeiro, tenta criar as seções iniciais
       await fetch("/api/sections", {
         method: "POST",
@@ -36,9 +34,7 @@ export default function SectionsPage() {
 
       // Depois busca todas as seções
       const response = await fetch("/api/sections");
-      console.log("Response status:", response.status);
       const data = await response.json();
-      console.log("Sections data:", data);
 
       if (Array.isArray(data)) {
         setSections(data);

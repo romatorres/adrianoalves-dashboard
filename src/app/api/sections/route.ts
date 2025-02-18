@@ -14,7 +14,6 @@ export async function GET() {
       }
     });
 
-    console.log("API Sections:", sections);
     return NextResponse.json(sections);
   } catch (error) {
     console.error("Error in API:", error);
@@ -59,8 +58,6 @@ export async function POST() {
       { name: "team", active: true },
     ];
 
-    console.log("Creating initial sections...");
-
     for (const section of sections) {
       await prisma.sectionVisibility.upsert({
         where: { name: section.name },
@@ -80,7 +77,6 @@ export async function POST() {
       },
     });
 
-    console.log("Created sections:", createdSections);
     return NextResponse.json(createdSections);
   } catch (error) {
     console.error("Error creating sections:", error);

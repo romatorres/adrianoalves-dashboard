@@ -1,13 +1,4 @@
-export interface Product {
-  id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  imageUrl: string | null;
-  active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Product } from "@/types";
 
 export interface ProductFormData {
   name: string;

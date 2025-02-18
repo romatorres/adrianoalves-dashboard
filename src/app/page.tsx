@@ -6,14 +6,15 @@ import { Header } from "@/components/Header/Header";
 import { GalleryGrid } from "@/components/Gallery/GalleryGrid";
 import { Contact } from "@/components/Contact/Contact";
 import { Footer } from "@/components/Footer/Footer";
+
 import {
-  getGalleryImages,
   getProducts,
+  getServices,
+  getGalleryImages,
   getTeamMembers,
   getPromotions,
-  getServices,
 } from "@/lib/fetchers";
-import { Product } from "@/components/Shop/types";
+
 import { About } from "@/components/About/About";
 import { prisma } from "@/lib/prisma";
 import ServiceGrid from "@/components/Services/ServiceGrid";
@@ -33,7 +34,7 @@ export default async function Home() {
     getServices(),
   ]);
 
-  const serializedProducts = (products || []).map((product: Product) => ({
+  const serializedProducts = (products || []).map((product) => ({
     ...product,
     price: Number(product.price),
   }));

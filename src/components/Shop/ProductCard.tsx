@@ -6,7 +6,7 @@ import Link from "next/link";
 interface Product {
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   price: number;
   imageUrl: string | null;
   productCategory?: {
