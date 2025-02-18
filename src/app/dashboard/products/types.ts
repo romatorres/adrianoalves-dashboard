@@ -1,6 +1,6 @@
 import { Product } from "@/types";
 
-export interface ProductFormData {
+export interface ProductFormData extends Product {
   name: string;
   description: string;
   price: number;
@@ -19,4 +19,3 @@ export interface ProductListResponse {
   data?: Product[];
   error?: string;
 }
-

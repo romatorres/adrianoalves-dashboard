@@ -2,18 +2,22 @@ import { prisma } from "@/lib/prisma";
 import { Product } from "@/types";
 
 export async function getProducts(): Promise<Product[]> {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
-    {
-      next: {
-        tags: ["products", "dashboard-products"],
-        revalidate: 0,
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_URL ||
+    (process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : "http://localhost:3000");
+  const apiUrl = `${baseUrl}/api/products`;
+  const response = await fetch(apiUrl, {
+    next: {
+      tags: ["products", "dashboard-products"],
+      revalidate: 0,
+    },
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Falha ao buscar produtos");
