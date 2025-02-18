@@ -1,5 +1,4 @@
 // Funções de ação para gerenciar equipe (create, update, delete)
-import { revalidatePath } from "next/cache";
 import { TeamMember } from "./types";
 import {
   deleteUploadThingFile,
@@ -14,17 +13,20 @@ export async function createTeamMember(data: Omit<TeamMember, "id">) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-      cache: "no-store",
     });
 
-    // Force revalidation of the team data
-    revalidatePath("/dashboard/team");
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to create team member");
+    }
 
     return await response.json();
   } catch (error) {
+    console.error("Error creating team member:", error);
     throw error;
   }
 }
+
 export async function updateTeamMember(
   id: string,
   data: Omit<TeamMember, "id">
@@ -94,5 +96,3 @@ export async function getTeamMember(id: string) {
     throw error;
   }
 }
-
-export const revalidate = 0;
