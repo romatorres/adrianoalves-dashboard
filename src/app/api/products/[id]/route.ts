@@ -32,10 +32,15 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: serializeProduct(product),
     });
+
+    // Revalidate the products page when a product is updated
+    response.headers.set("Cache-Control", "no-store, max-age=0");
+    response.headers.set("x-vercel-revalidate", "1");
+    return response;
   } catch (error) {
     console.error("Erro ao buscar produto:", error);
     return NextResponse.json(
