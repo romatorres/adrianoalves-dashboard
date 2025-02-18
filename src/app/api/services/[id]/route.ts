@@ -12,22 +12,16 @@ function serializeService(service: {
   };
 }
 
-export async function GET(
-  request: NextRequest,
-  
-) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id") || "";
   try {
     const service = await prisma.service.findUnique({
       where: { id },
     });
 
     if (!service) {
-      return NextResponse.json(
-        { error: "Service not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
     return NextResponse.json(serializeService(service));
@@ -66,13 +60,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     await prisma.service.delete({
-      where: { id },
+      where: { id: params.id },
     });
 
     return NextResponse.json({ success: true });
@@ -83,4 +75,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-} 
+}

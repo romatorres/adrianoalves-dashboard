@@ -13,33 +13,37 @@ function serializeProduct(product: {
   };
 }
 
-export async function GET(
-  request: NextRequest,
-) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id") || "";
   try {
     const product = await prisma.product.findUnique({
       where: { id },
     });
 
     if (!product) {
-      return NextResponse.json({
-        success: false,
-        error: "Produto não encontrado"
-      }, { status: 404 });
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Produto não encontrado",
+        },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({
       success: true,
-      data: serializeProduct(product)
+      data: serializeProduct(product),
     });
   } catch (error) {
     console.error("Erro ao buscar produto:", error);
-    return NextResponse.json({
-      success: false,
-      error: "Erro ao buscar produto"
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Erro ao buscar produto",
+      },
+      { status: 500 }
+    );
   }
 }
 
@@ -59,46 +63,54 @@ export async function PUT(
 
     return NextResponse.json({
       success: true,
-      data: serializeProduct(product)
+      data: serializeProduct(product),
     });
   } catch (error) {
     console.error("Erro ao atualizar produto:", error);
-    
+
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === 'P2025') {
-        return NextResponse.json({
-          success: false,
-          error: "Produto não encontrado"
-        }, { status: 404 });
+      if (error.code === "P2025") {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Produto não encontrado",
+          },
+          { status: 404 }
+        );
       }
     }
 
-    return NextResponse.json({
-      success: false,
-      error: "Erro ao atualizar produto"
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Erro ao atualizar produto",
+      },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(
   request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     await prisma.product.delete({
-      where: { id },
+      where: { id: params.id },
     });
 
     return NextResponse.json({
       success: true,
-      message: "Produto excluído com sucesso"
+      message: "Produto excluído com sucesso",
     });
   } catch (error) {
     console.error("Erro ao excluir produto:", error);
-    return NextResponse.json({
-      success: false,
-      error: "Erro ao excluir produto"
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Erro ao excluir produto",
+      },
+      { status: 500 }
+    );
   }
 }

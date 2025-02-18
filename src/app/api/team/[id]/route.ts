@@ -1,12 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  
-) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id") || "";
   try {
     const member = await prisma.teamMember.findUnique({
       where: { id },
@@ -45,7 +42,6 @@ export async function PUT(
       data: member,
     });
 
-
     return NextResponse.json(updatedTeamMember);
   } catch (error) {
     console.error("Error updating team member:", error);
@@ -58,13 +54,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  
+  { params }: { params: { id: string } }
 ) {
-   const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     await prisma.teamMember.delete({
-      where: { id },
+      where: { id: params.id },
     });
 
     return NextResponse.json({ success: true });

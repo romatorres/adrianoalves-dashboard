@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest} from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Decimal } from "@prisma/client/runtime/library";
 import { Promotion } from "@/app/dashboard/promotions/types";
@@ -14,11 +14,9 @@ function serializePromotion(promotion: PromotionWithDecimal): Promotion {
   };
 }
 
-export async function GET(
-  request: NextRequest,
-) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id") || "";
   try {
     const promotion = await prisma.promotion.findUnique({
       where: { id },
@@ -92,12 +90,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id') || ''
   try {
     await prisma.promotion.delete({
-      where: { id },
+      where: { id: params.id },
     });
 
     return NextResponse.json({ success: true });
