@@ -2,17 +2,25 @@ import { prisma } from "@/lib/prisma";
 import { Product } from "@/types";
 
 export async function getProducts(): Promise<Product[]> {
-  const products = await prisma.product.findMany({
-    where: { active: true },
-    orderBy: {
-      createdAt: "desc"
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+    {
+      next: {
+        tags: ["products", "dashboard-products"],
+        revalidate: 0,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
-  });
+  );
 
-  return products.map(product => ({
-    ...product,
-    price: Number(product.price)
-  }));
+  if (!response.ok) {
+    throw new Error("Falha ao buscar produtos");
+  }
+
+  const { data } = await response.json();
+  return data;
 }
 
 export async function getGalleryImages() {
