@@ -5,6 +5,7 @@ import { UserForm } from "./UserForm";
 import { UserList } from "./UserList";
 import ButtonForm from "@/components/Ui/button-form";
 import toast from "react-hot-toast";
+import { Plus } from "lucide-react";
 
 interface User {
   id: string;
@@ -106,8 +107,13 @@ export function UserManager({ initialUsers }: UserManagerProps) {
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Usuários
         </h1>
-        <ButtonForm onClick={() => setShowForm(true)} variant="primary">
-          Novo Usuário
+        <ButtonForm
+          onClick={() => setShowForm(true)}
+          variant="primary"
+          className="flex items-center gap-2"
+        >
+          <Plus />
+          <span className="hidden md:flex">Usuário</span>
         </ButtonForm>
       </div>
 
