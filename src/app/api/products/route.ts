@@ -24,16 +24,14 @@ export async function GET() {
       },
     });
 
+    const serializedProducts = products.map(serializeProduct);
+    
     const response = NextResponse.json({
       success: true,
-      data: products.map((product) => ({
-        ...product,
-        price: Number(product.price),
-      })),
+      data: serializedProducts,
     });
 
-    response.headers.set("Cache-Control", "no-store, max-age=0");
-    response.headers.set("x-vercel-revalidate", "1");
+    response.headers.set("Cache-Control", "no-store");
     return response;
   } catch (error) {
     console.error("Error fetching products:", error);

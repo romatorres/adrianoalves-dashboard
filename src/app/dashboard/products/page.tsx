@@ -1,22 +1,14 @@
-import { prisma } from "@/lib/prisma";
+import { getProducts } from "@/lib/fetchers";
 import { ProductManager } from "./components/ProductManager";
 
+export const revalidate = 0;
+
 export default async function ProductsPage() {
-  const products = await prisma.product.findMany({
-    where: { active: true },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const products = await getProducts();
 
   return (
     <div>
-      <ProductManager
-        initialProducts={products.map((product) => ({
-          ...product,
-          price: Number(product.price),
-        }))}
-      />
+      <ProductManager initialProducts={products} />
     </div>
   );
 }

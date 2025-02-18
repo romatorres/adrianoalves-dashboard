@@ -2,29 +2,20 @@ import { prisma } from "@/lib/prisma";
 import { Product } from "@/types";
 
 export async function getProducts(): Promise<Product[]> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    (process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : "http://localhost:3000");
-  const apiUrl = `${baseUrl}/api/products`;
-  const response = await fetch(apiUrl, {
-    next: {
-      tags: ["products", "dashboard-products"],
-      revalidate: 0,
-    },
-    cache: "no-store",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  try {
+    const products = await prisma.product.findMany({
+      where: { active: true },
+      orderBy: { createdAt: "desc" },
+    });
 
-  if (!response.ok) {
-    throw new Error("Falha ao buscar produtos");
+    return products.map((product) => ({
+      ...product,
+      price: Number(product.price),
+    }));
+  } catch (error) {
+    console.error("Erro ao buscar produtos:", error);
+    return [];
   }
-
-  const { data } = await response.json();
-  return data;
 }
 
 export async function getGalleryImages() {
