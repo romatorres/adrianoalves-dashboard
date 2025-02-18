@@ -4,6 +4,7 @@ import { PromotionGrid } from "@/components/Promotions/PromotionGrid";
 import { Hero } from "@/components/Hero/Hero";
 import { Header } from "@/components/Header/Header";
 import { GalleryGrid } from "@/components/Gallery/GalleryGrid";
+import { ServiceGrid } from "@/components/Services/ServiceGrid";
 import { Contact } from "@/components/Contact/Contact";
 import { Footer } from "@/components/Footer/Footer";
 
@@ -17,7 +18,6 @@ import {
 
 import { About } from "@/components/About/About";
 import { prisma } from "@/lib/prisma";
-import ServiceGrid from "@/components/Services/ServiceGrid";
 
 export const revalidate = 0;
 

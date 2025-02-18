@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 import { Decimal } from "@prisma/client/runtime/library";
+import { revalidateTag } from "next/cache";
 
 function serializeService(service: {
   price: Decimal;
@@ -12,23 +13,30 @@ function serializeService(service: {
   };
 }
 
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id") || "";
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const service = await prisma.service.findUnique({
-      where: { id },
+      where: { id: params.id },
     });
 
     if (!service) {
-      return NextResponse.json({ error: "Service not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: "Serviço não encontrado" },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json(serializeService(service));
+    return NextResponse.json({
+      success: true,
+      data: serializeService(service),
+    });
   } catch (error) {
-    console.error("Error fetching service:", error);
+    console.error("Erro ao buscar serviço:", error);
     return NextResponse.json(
-      { error: "Error fetching service" },
+      { success: false, error: "Erro ao buscar serviço" },
       { status: 500 }
     );
   }
@@ -48,11 +56,17 @@ export async function PUT(
       },
     });
 
-    return NextResponse.json(serializeService(service));
+    const response = NextResponse.json({
+      success: true,
+      data: serializeService(service),
+    });
+
+    revalidateTag("services");
+    return response;
   } catch (error) {
-    console.error("Error updating service:", error);
+    console.error("Erro ao atualizar serviço:", error);
     return NextResponse.json(
-      { error: "Error updating service" },
+      { success: false, error: "Erro ao atualizar serviço" },
       { status: 500 }
     );
   }
@@ -67,11 +81,17 @@ export async function DELETE(
       where: { id: params.id },
     });
 
-    return NextResponse.json({ success: true });
+    const response = NextResponse.json({
+      success: true,
+      message: "Serviço excluído com sucesso",
+    });
+
+    revalidateTag("services");
+    return response;
   } catch (error) {
-    console.error("Error deleting service:", error);
+    console.error("Erro ao excluir serviço:", error);
     return NextResponse.json(
-      { error: "Error deleting service" },
+      { success: false, error: "Erro ao excluir serviço" },
       { status: 500 }
     );
   }

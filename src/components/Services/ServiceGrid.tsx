@@ -17,7 +17,7 @@ interface ServiceGridProps {
   isVisible?: boolean;
 }
 
-export default function ServiceGrid({
+export function ServiceGrid({
   services = [],
   isVisible = true,
 }: ServiceGridProps) {
