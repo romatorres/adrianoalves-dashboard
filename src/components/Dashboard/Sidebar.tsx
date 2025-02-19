@@ -22,7 +22,6 @@ import {
   LayoutTemplate,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
-import { UserImageUpload } from "./UserImageUpload";
 
 interface SubMenuItem {
   name: string;
@@ -114,11 +113,15 @@ export function Sidebar() {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="h-full flex flex-col px-3 py-4 overflow-y-auto bg-gray-04 border-r w-64">
+        <div className="h-full flex flex-col px-3 py-0 overflow-y-auto bg-gray-04 border-r w-64">
           {/* Perfil do usuário */}
           <div className="mb-6 p-4 border-b">
-            <div className="flex items-center space-x-4">
-              <UserImageUpload />
+            <div className="flex items-center gap-4">
+              <div className="h-9 w-9 rounded-full bg-gray-01 flex items-center justify-center">
+                <span className="text-xl font-medium text-white">
+                  {session?.user?.name?.[0]?.toUpperCase() || "U"}
+                </span>
+              </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-background truncate">
                   {session?.user?.name || "Usuário"}
@@ -199,7 +202,7 @@ export function Sidebar() {
           </ul>
 
           {/* Botão de logout */}
-          <div className="border-t pt-4">
+          <div className="border-t py-4 flex-shrink-0">
             <button
               onClick={handleLogout}
               className="w-full flex items-center p-2 rounded-lg hover:bg-red-50 text-red-600 transition-colors"
