@@ -58,10 +58,6 @@ export async function POST(request: Request) {
       data: serializeProduct(product),
     });
 
-    /* response.headers.set("Cache-Control", "no-store, max-age=0");
-    response.headers.set("x-vercel-revalidate", "1");
-    revalidateTag("products");
-    revalidateTag("dashboard-products"); */
     return response;
   } catch (error) {
     console.error("Error creating product:", error);

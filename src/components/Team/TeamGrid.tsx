@@ -43,7 +43,7 @@ const TeamGrid = ({ members, isVisible = true }: TeamGridProps) => {
           <a
             href="https://avec.app/adrianoalves/"
             target="_blank"
-            className="w-full sm:w-auto bg-background text-secondary px-12 py-4 rounded-full font-semibold text-center hover:bg-primary hover:text-background transition-colors duration-300"
+            className=" bg-background text-secondary px-12 py-4 rounded-full font-semibold text-center hover:bg-primary hover:text-background transition-colors duration-300"
           >
             AGENDE UM HORÁRIO
           </a>
