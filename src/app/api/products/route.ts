@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { Decimal } from "@prisma/client/runtime/library";
-import { revalidateTag } from "next/cache";
 
 function serializeProduct(product: {
   price: Decimal;
@@ -59,10 +58,10 @@ export async function POST(request: Request) {
       data: serializeProduct(product),
     });
 
-    response.headers.set("Cache-Control", "no-store, max-age=0");
+    /* response.headers.set("Cache-Control", "no-store, max-age=0");
     response.headers.set("x-vercel-revalidate", "1");
     revalidateTag("products");
-    revalidateTag("dashboard-products");
+    revalidateTag("dashboard-products"); */
     return response;
   } catch (error) {
     console.error("Error creating product:", error);
