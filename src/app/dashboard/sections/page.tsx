@@ -87,9 +87,7 @@ export default function SectionsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl text-background font-bold mb-6">
-          Gerenciar Seções
-        </h1>
+        <h1 className="text-2xl text-background font-bold">Gerenciar Seções</h1>
         <ButtonForm variant="btn_icon">
           <Link href="/dashboard">
             <ChevronLeft />

@@ -35,7 +35,7 @@ const buttonVariants = {
     "text-gray-04 hover:text-gray-03 border-none bg-gray-03 hover:bg-gray-02 px-3 py-2 rounded-lg",
   link: "text-gray-01 hover:text-gray-02 border-none px-3 py-1",
   btn_icon:
-    "bg-gray-02 text-white hover:text-white hover:bg-gray-01 px-2 py-2 border-none rounded-lg duration-100",
+    "text-background hover:text-white hover:bg-gray-01 px-2 py-2 border border-2 border-gray-01 rounded-lg duration-100",
 };
 
 const ButtonForm: React.FC<ButtonProps> = ({
