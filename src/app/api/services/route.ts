@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { Decimal } from "@prisma/client/runtime/library";
-import { revalidateTag } from "next/cache";
+/* import { revalidateTag } from "next/cache"; */
 
 interface ServiceError {
   message: string;
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
       data: serializeService(service),
     });
 
-    revalidateTag("services");
+    /* revalidateTag("services"); */
     return response;
   } catch (error: unknown) {
     const serviceError = error as ServiceError;

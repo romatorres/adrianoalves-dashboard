@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 import { Decimal } from "@prisma/client/runtime/library";
-import { revalidateTag } from "next/cache";
+/* import { revalidateTag } from "next/cache"; */
 
 function serializeService(service: {
   price: Decimal;
@@ -61,7 +61,7 @@ export async function PUT(
       data: serializeService(service),
     });
 
-    revalidateTag("services");
+    /* revalidateTag("services"); */
     return response;
   } catch (error) {
     console.error("Erro ao atualizar serviço:", error);
@@ -86,7 +86,7 @@ export async function DELETE(
       message: "Serviço excluído com sucesso",
     });
 
-    revalidateTag("services");
+    /* revalidateTag("services"); */
     return response;
   } catch (error) {
     console.error("Erro ao excluir serviço:", error);
