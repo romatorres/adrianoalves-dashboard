@@ -7,7 +7,8 @@ import { Product, ProductFormData } from "@/types";
 import { createProduct, deleteProduct, updateProduct } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
-import { Plus } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
+import Link from "next/link";
 
 interface ProductManagerProps {
   initialProducts: Product[];
@@ -75,7 +76,12 @@ export function ProductManager({ initialProducts }: ProductManagerProps) {
         <h1 className="md:text-2xl text-xl font-bold text-background">
           Gerenciar Produtos
         </h1>
-        <div className="flex gap-4">
+        <div className="flex gap-3">
+          <ButtonForm variant="btn_icon">
+            <Link href="/dashboard">
+              <ChevronLeft />
+            </Link>
+          </ButtonForm>
           <ButtonForm
             onClick={() => setShowForm(true)}
             className="flex items-center gap-2"

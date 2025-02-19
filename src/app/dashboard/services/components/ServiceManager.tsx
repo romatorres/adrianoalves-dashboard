@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ServiceForm } from "./ServiceForm";
 import { ServiceList } from "./ServiceList";
 import { Service, ServiceFormData } from "../types";
 import { createService, deleteService, updateService } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
-import { Plus } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
 
 interface ServiceManagerProps {
   initialServices: Service[];
@@ -77,13 +78,21 @@ export function ServiceManager({ initialServices }: ServiceManagerProps) {
         <h1 className="md:text-2xl text-xl font-bold text-background">
           Gerenciar Serviços
         </h1>
-        <ButtonForm
-          onClick={() => setShowForm(true)}
-          className="flex items-center gap-2"
-        >
-          <Plus />
-          <span className="hidden md:flex">Serviço</span>
-        </ButtonForm>
+        <div className="flex gap-3">
+          <ButtonForm variant="btn_icon">
+            <Link href="/dashboard">
+              <ChevronLeft />
+            </Link>
+          </ButtonForm>
+
+          <ButtonForm
+            onClick={() => setShowForm(true)}
+            className="flex items-center gap-2"
+          >
+            <Plus />
+            <span className="hidden md:flex">Serviço</span>
+          </ButtonForm>
+        </div>
       </div>
 
       {showForm ? (

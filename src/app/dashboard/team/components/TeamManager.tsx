@@ -12,7 +12,8 @@ import {
 } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import toast from "react-hot-toast";
-import { Plus } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
+import Link from "next/link";
 
 interface TeamManagerProps {
   initialMembers: TeamMember[];
@@ -78,14 +79,21 @@ export function TeamManager({ initialMembers }: TeamManagerProps) {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-background">Gerenciar Equipe</h1>
-        <ButtonForm
-          onClick={() => setShowForm(true)}
-          variant="primary"
-          className="flex items-center gap-2"
-        >
-          <Plus />
-          <span className="hidden md:flex">Membro</span>
-        </ButtonForm>
+        <div className="flex gap-3">
+          <ButtonForm variant="btn_icon">
+            <Link href="/dashboard">
+              <ChevronLeft />
+            </Link>
+          </ButtonForm>
+          <ButtonForm
+            onClick={() => setShowForm(true)}
+            variant="primary"
+            className="flex items-center gap-2"
+          >
+            <Plus />
+            <span className="hidden md:flex">Membro</span>
+          </ButtonForm>
+        </div>
       </div>
 
       {showForm ? (

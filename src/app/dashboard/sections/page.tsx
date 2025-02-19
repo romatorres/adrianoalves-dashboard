@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
+import ButtonForm from "@/components/Ui/button-form";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 
 interface Section {
   id: string;
@@ -83,9 +86,16 @@ export default function SectionsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl text-background font-bold mb-6">
-        Gerenciar Seções
-      </h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl text-background font-bold mb-6">
+          Gerenciar Seções
+        </h1>
+        <ButtonForm variant="btn_icon">
+          <Link href="/dashboard">
+            <ChevronLeft />
+          </Link>
+        </ButtonForm>
+      </div>
       <div className="bg-amber-100 rounded-lg shadow p-6">
         <div className="space-y-4">
           {sections.map((section) => (

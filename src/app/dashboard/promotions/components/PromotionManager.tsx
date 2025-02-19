@@ -10,7 +10,8 @@ import { PromotionList } from "./PromotionList";
 import { Promotion } from "../types";
 import { deletePromotion } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
-import { Plus } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
+import Link from "next/link";
 
 interface PromotionManagerProps {
   initialData?: PromotionFormData;
@@ -112,14 +113,21 @@ export default function PromotionManager({
         <h1 className="text-2xl font-bold text-background">
           Gerenciar Promoções
         </h1>
-        <ButtonForm
-          onClick={() => setShowForm(true)}
-          variant="primary"
-          className="flex items-center gap-2"
-        >
-          <Plus />
-          <span className="hidden md:flex">Promoção</span>
-        </ButtonForm>
+        <div className="flex gap-3">
+          <ButtonForm variant="btn_icon">
+            <Link href="/dashboard">
+              <ChevronLeft />
+            </Link>
+          </ButtonForm>
+          <ButtonForm
+            onClick={() => setShowForm(true)}
+            variant="primary"
+            className="flex items-center gap-2"
+          >
+            <Plus />
+            <span className="hidden md:flex">Promoção</span>
+          </ButtonForm>
+        </div>
       </div>
 
       {showForm ? (

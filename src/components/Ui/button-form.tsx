@@ -11,17 +11,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "link_disabled"
     | "link"
     | "danger"
+    | "btn_icon"
     | "danger_card";
   isLoading?: boolean;
 }
 
 const buttonVariants = {
   primary:
-    "bg-primary text-background hover:bg-primary_hover border-none px-5 py-2 rounded-lg duration-100",
+    "bg-primary text-background hover:bg-primary_hover border-none px-4 py-2 rounded-lg duration-100",
   secondary:
-    "bg-gray-02 text-white hover:text-white hover:bg-gray-01 px-5 py-2 border-none rounded-lg duration-100",
+    "bg-gray-02 text-white hover:text-white hover:bg-gray-01 px-4 py-2 border-none rounded-lg duration-100",
   outline:
-    "bg-transparent text-gray-01 hover:text-white hover:bg-gray-02 px-5 py-2 border border-gray-02 rounded-lg duration-100",
+    "bg-transparent text-gray-01 hover:text-white hover:bg-gray-02 px-4 py-2 border border-gray-02 rounded-lg duration-100",
   danger:
     "bg-red-500 text-white hover:bg-red-700 px-5 py-2 border-none rounded-lg duration-100",
   secondary_card:
@@ -33,6 +34,8 @@ const buttonVariants = {
   link_disabled:
     "text-gray-04 hover:text-gray-03 border-none bg-gray-03 hover:bg-gray-02 px-3 py-2 rounded-lg",
   link: "text-gray-01 hover:text-gray-02 border-none px-3 py-1",
+  btn_icon:
+    "bg-gray-02 text-white hover:text-white hover:bg-gray-01 px-2 py-2 border-none rounded-lg duration-100",
 };
 
 const ButtonForm: React.FC<ButtonProps> = ({
