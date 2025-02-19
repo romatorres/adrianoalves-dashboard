@@ -49,7 +49,7 @@ export function UserList({ users = [], onEdit, onDelete }: UserListProps) {
           {users.map((user) => (
             <li key={user.id}>
               <div className="px-4 py-4 sm:px-6">
-                <div className="flex items-center justify-between">
+                <div className="flex md:flex-row flex-col md:items-center items-start justify-between">
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-background truncate">
                       {user.name}
@@ -68,7 +68,8 @@ export function UserList({ users = [], onEdit, onDelete }: UserListProps) {
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
+
+                  <div className="flex items-center gap-4 md:mt-0 mt-2">
                     <ButtonForm
                       onClick={() => onEdit(user)}
                       variant="secondary_card"

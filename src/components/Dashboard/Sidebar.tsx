@@ -115,8 +115,8 @@ export function Sidebar() {
       >
         <div className="h-full flex flex-col px-3 py-0 overflow-y-auto bg-gray-04 border-r w-64">
           {/* Perfil do usuário */}
-          <div className="mb-6 p-4 border-b">
-            <div className="flex items-center gap-4">
+          <div className="mb-6 p-4 border-b flex justify-end md:justify-start ">
+            <div className="flex flex-row items-center gap-4 ">
               <div className="h-9 w-9 rounded-full bg-gray-01 flex items-center justify-center">
                 <span className="text-xl font-medium text-white">
                   {session?.user?.name?.[0]?.toUpperCase() || "U"}
