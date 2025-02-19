@@ -55,21 +55,25 @@ export function ServiceList({
   return (
     <>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => (
+        {services.map((service, index) => (
           <div
-            key={service.id}
+            key={`${service.id}-${index}`}
             className="relative bg-amber-100 p-4 rounded-lg shadow hover:shadow-md transition-shadow"
           >
-            {service.imageUrl && (
-              <div className="relative h-40 w-full mb-4">
+            <div className="relative h-40 w-full mb-4">
+              {service.imageUrl ? (
                 <Image
                   src={service.imageUrl}
                   alt={service.name}
                   fill
                   className="rounded-lg object-cover"
                 />
-              </div>
-            )}
+              ) : (
+                <div className="h-full w-full bg-gray-200 rounded-lg flex items-center justify-center">
+                  <span className="text-gray-400">Sem serviços</span>
+                </div>
+              )}
+            </div>
             <h3 className="text-lg font-medium text-background">
               {service.name}
             </h3>
