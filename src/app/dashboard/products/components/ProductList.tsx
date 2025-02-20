@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "../types";
+import { Product } from "@/types";
 import { useState } from "react";
 import Image from "next/image";
 import ButtonForm from "@/components/Ui/button-form";

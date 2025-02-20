@@ -3,28 +3,29 @@ import {
   deleteUploadThingFile,
   isUploadThingUrl,
 } from "@/utils/uploadthing-config";
+import { Service } from "@/types";
 
-export async function createService(data: ServiceFormData) {
+export async function createService(data: ServiceFormData): Promise<Service> {
   try {
-    const response = await fetch(`/api/services`, {
+    const response = await fetch("/api/services", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...data,
         price: Number(data.price),
-        duration: Number(data.duration),
+        duration: Number(data.duration)
       }),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error("Failed to create service");
+      throw new Error(result.error || "Erro ao criar serviço");
     }
 
-    return await response.json();
+    return result.data;
   } catch (error) {
-    console.error("Error creating service:", error);
+    console.error("Erro ao criar serviço:", error);
     throw error;
   }
 }
@@ -34,20 +35,24 @@ export async function updateService(
   data: Partial<ServiceFormData>
 ) {
   try {
+    // Garantir que price e duration são sempre números
+    const payload = {
+      ...data,
+      price: data.price !== undefined ? Number(data.price) : undefined,
+      duration: data.duration !== undefined ? Number(data.duration) : undefined,
+    };
+
     const response = await fetch(`/api/services/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...data,
-        price: data.price ? Number(data.price) : undefined,
-        duration: data.duration ? Number(data.duration) : undefined,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update service");
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to update service");
     }
 
     return await response.json();

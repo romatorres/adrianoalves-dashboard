@@ -24,6 +24,15 @@ export interface Category {
   active: boolean;
 }
 
+export interface ServiceFormData {
+  name: string;
+  description: string;
+  price: number;
+  duration: number;
+  imageUrl: string;
+  active: boolean;
+}
+
 export interface Service {
   id: string;
   name: string;

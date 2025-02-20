@@ -5,5 +5,10 @@ export const revalidate = 0;
 
 export default async function ServicesPage() {
   const services = await getServices();
-  return <ServiceManager initialServices={services} />;
+
+  return (
+    <div>
+      <ServiceManager initialServices={services} />
+    </div>
+  );
 }

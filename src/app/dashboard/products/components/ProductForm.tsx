@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Product, ProductFormData } from "../types";
+import { Product, ProductFormData } from "@/types";
 import ImageUpload, { confirmUpload } from "@/components/Upload/ImageUpload";
 import Input from "@/components/Ui/input-custom";
 import Textarea from "@/components/Ui/textarea-custom";

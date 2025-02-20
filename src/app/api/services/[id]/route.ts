@@ -48,21 +48,22 @@ export async function PUT(
 ) {
   try {
     const data = await request.json();
+    
+    // Garantir que price seja um Decimal válido
+    const price = data.price !== undefined ? new Decimal(data.price) : undefined;
+    
     const service = await prisma.service.update({
       where: { id: params.id },
       data: {
         ...data,
-        price: new Decimal(data.price),
+        price: price,
       },
     });
 
-    const response = NextResponse.json({
+    return NextResponse.json({
       success: true,
       data: serializeService(service),
     });
-
-    
-    return response;
   } catch (error) {
     console.error("Erro ao atualizar serviço:", error);
     return NextResponse.json(

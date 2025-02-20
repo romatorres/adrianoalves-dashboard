@@ -4,7 +4,7 @@ export interface Service {
   description: string;
   price: number;
   duration: number; // em minutos
-  imageUrl: string | null | undefined;
+  imageUrl: string | null;
   active: boolean;
   createdAt?: Date;
   updatedAt?: Date;

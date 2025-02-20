@@ -1,6 +1,6 @@
 "use client";
 
-import { Service } from "../types";
+import { Service } from "@/types";
 import { useState } from "react";
 import Image from "next/image";
 import ButtonForm from "@/components/Ui/button-form";
@@ -55,40 +55,26 @@ export function ServiceList({
   return (
     <>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service, index) => (
-          <div
-            key={`${service.id}-${index}`}
-            className="relative bg-amber-100 p-4 rounded-lg shadow hover:shadow-md transition-shadow"
-          >
-            <div className="relative h-40 w-full mb-4">
-              {service.imageUrl ? (
-                <Image
-                  src={service.imageUrl}
-                  alt={service.name}
-                  fill
-                  className="rounded-lg object-cover"
-                />
-              ) : (
-                <div className="h-full w-full bg-gray-200 rounded-lg flex items-center justify-center">
-                  <span className="text-gray-400">Sem serviços</span>
-                </div>
-              )}
+        {services.map((service) => (
+          <div key={service.id} className="bg-amber-100 p-4 rounded-lg shadow">
+            <div className="relative aspect-[4/3] w-full mb-4">
+              <Image
+                src={service.imageUrl || "/img/default-service.jpg"}
+                alt={service.name}
+                fill
+                className="rounded-lg object-cover"
+              />
             </div>
             <h3 className="text-lg font-medium text-background">
               {service.name}
             </h3>
             <p className="mt-1 text-sm text-gray-02">{service.description}</p>
-            <div className="mt-2 space-y-1">
-              <div className="text-lg font-medium text-price">
-                {new Intl.NumberFormat("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                }).format(service.price)}
-              </div>
-              <div className="text-sm text-gray-02">
-                Duração: {service.duration} minutos
-              </div>
-            </div>
+            <p className="mt-2 text-primary font-semibold">
+              R$ {service.price.toFixed(2)}
+            </p>
+            <p className="text-sm text-gray-02">
+              Duração: {service.duration} minutos
+            </p>
             <div className="mt-2">
               <span
                 className={`inline-flex px-2 text-xs font-semibold rounded-full ${

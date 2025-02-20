@@ -23,7 +23,7 @@ export function ServiceCard({ service }: { service: Service }) {
   return (
     <section className="mx-2 rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gray-04">
       <div className="p-2">
-        <div className="relative h-56">
+        <div className="relative h-56 w-full">
           <Image
             src={service.imageUrl || ""}
             alt={service.name}

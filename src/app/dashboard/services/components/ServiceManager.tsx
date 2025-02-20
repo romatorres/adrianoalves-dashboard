@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { ServiceForm } from "./ServiceForm";
 import { ServiceList } from "./ServiceList";
-import { Service, ServiceFormData } from "../types";
+import { Service } from "@/types/index";
+import { ServiceFormData } from "../types";
 import { createService, deleteService, updateService } from "../actions";
 import ButtonForm from "@/components/Ui/button-form";
 import { toast } from "react-hot-toast";
@@ -24,11 +25,13 @@ export function ServiceManager({ initialServices }: ServiceManagerProps) {
     setIsLoading(true);
     try {
       if (selectedService) {
-        // Atualizar serviço existente
+        console.log("Dados enviados para atualização:", data);
         const updatedService = await updateService(selectedService.id, data);
+        console.log("Resposta da atualização:", updatedService);
+
         setServices(
           services.map((s) =>
-            s.id === selectedService.id ? updatedService : s
+            s.id === selectedService.id ? updatedService.data : s
           )
         );
         toast.success("Serviço atualizado com sucesso!");
