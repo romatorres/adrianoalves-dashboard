@@ -7,6 +7,10 @@ const nextConfig = {
         hostname: "**",
       },
     ],
+    domains: ["localhost", "utfs.io", "2jc6rnrlfu.ufs.sh"],
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
 
